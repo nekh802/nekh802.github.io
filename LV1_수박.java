@@ -27,4 +27,4 @@ N = 5일 때
 
 
 answer = word[i % 2]; 로 해줘야 한다. 
-
+> block quote
