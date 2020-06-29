@@ -11,3 +11,20 @@ class Solution {
   return answer; 
   } 
 }
+
+
+String answer = "";
+
+N = 5일 때 
+
+        for (int i = 0; i < n; i++) {
+
+                answer = word[i % 2];
+
+            }
+
+이렇게 하면 결과는 수수수수수
+
+
+answer = word[i % 2]; 로 해줘야 한다. 
+
