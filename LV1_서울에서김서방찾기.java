@@ -12,6 +12,7 @@ seoul	return
 
 ---
 #글머리
+## 글머리
 
 class Solution {
     public String solution(String[] seoul) {
