@@ -7,3 +7,4 @@ If(i%2 == 0) {answer += &#39;수&#39;;
 answer += &#39;박&#39;;
 } }
 returnanswer; } }
+박수박수
