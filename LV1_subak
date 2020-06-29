@@ -1,7 +1,7 @@
 class Solution {
 publicString solution(int n) {
 String answer = &quot;&quot;;
-for(int i = 0;i&lt;n;i++) {
+for(int i = 0;i < n;i++) {
 If(i%2 == 0) {answer += &#39;수&#39;;
 }else {
 answer += &#39;박&#39;;
