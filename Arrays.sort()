@@ -1,0 +1,88 @@
+package study;
+import java.util.*;
+import java.util.Collections;
+class q3 {
+	public static void main(String[] args) {
+		int[] arr1 = {1, 9, 100, -80, 0, -7};
+		String[] arr2 = {"apple", "Apple", "Banana", "banana", "Cat", "cat", "zeros", "Zeros"};
+		String[] arr3 = {"가", "나", "다", "핳"};
+		String[] arr4 = {"3", "apple", "Apple", "-8", "0", "&"};
+		
+		//Arrays.sort(arr1, Collections.reverseOrder()); 
+    Arrays.sort(arr1);
+		Arrays.sort(arr2);
+		Arrays.sort(arr3);
+		Arrays.sort(arr4);
+		
+		//기본은 오름차순
+		for (int value : arr1) {
+			System.out.print(value+" ");
+		}
+		System.out.println();
+		
+		for (String value : arr2) {
+			System.out.print(value+" ");
+		}
+		System.out.println();
+		
+		for (String value : arr3) {
+			System.out.print(value+" ");
+		}
+		System.out.println();
+		
+		for (String value : arr4) {
+			System.out.print(value+" ");
+		}
+		System.out.println(); 
+    //ASCII 코드 순임을 확인할 수 있다. 
+		
+	}
+	
+}
+
+#결과값
+-80 -7 0 1 9 100 
+Apple Banana Cat Zeros apple banana cat zeros 
+가 나 다 핳 
+& -8 0 3 Apple apple { 
+
+#
+배열의 출력
+배열을 그냥 출력하게 되면 주소값이 출력된다.
+ /*
+		System.out.println(arr1);
+		System.out.println(arr2);
+		System.out.println(arr3);
+		System.out.println(arr4);
+		
+		[I@5b6f7412
+		[Ljava.lang.String;@27973e9b
+		[Ljava.lang.String;@312b1dae
+		[Ljava.lang.String;@7530d0a
+
+		*/
+
+배열은 for문으로 출력한다.
+기본 방싱과 for - each문이 있다.
+for (int i = 0; i< arr.length; i++) {
+  System.out.println(arr[i]+ " ");
+}
+
+
+#
+Arrays.sort()는 기본적으로 오름차순 정렬이다.
+내림차순으로 해주기 위해서는 Arrays.sort(함수명, Collections.reverseOrder());
+단, Collections()는 객체 타입에만 적용 가능하다. 
+int 같은 경우 내림차순을 해줄경우 integer로 바꿔주어야만 가능합니다. 그냥 Arrays.sort()는 int 타입에도 가능. 
+
+int[] 배열에 썼을 때는 다음과 같은 에러 발생 : 
+    
+참고 : https://stackoverflow.com/questions/12654600/sorting-an-int-array-in-descending-order-is-giving-method-not-applicable-for-ar
+/*
+ * Exception in thread "main" java.lang.Error: Unresolved compilation problem: 
+	The method sort(int[]) in the type Arrays is not applicable for the arguments (int[], Collections.reverseOrder())
+	at test/study.q3.main(q3.java:10)
+  
+	=>답변 Arrays.sort(arr,comparator); will not work on primitives. The arr has to be array of Objects.
+ * 
+ * */
