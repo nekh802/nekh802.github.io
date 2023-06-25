@@ -1,0 +1,156 @@
+#case1
+import math
+
+def find_intersection(x1, y1, r1, x2, y2, r2):
+    d = math.sqrt(math.pow(x2-x1,2) + math.pow(y2-y1,2))
+
+    # 두 원이 겹칠 경우
+
+    if d == 0 and r1 == r2 :
+      return -1
+  
+    # 내접하는 경우
+    elif d == abs(r1 - r2) and r1 != r2:
+        return 1
+
+    # 외접하는 경우
+    elif d == r1 + r2:
+        return 1
+
+    # 두 교점을 가지는 경우
+    elif (d < r1 + r2) and (d > abs(r1 - r2)):
+        return 2
+
+    # 그 외의 경우
+    else:
+        return 0
+
+num = int(input("Enter the number of test cases: "))
+result_list = []
+
+for i in range(num):
+  x1, y1, r1, x2, y2, r2 = map(int, input().split())
+  result_list.append(find_intersection(x1, y1, r1, x2, y2, r2))
+
+for i in result_list :
+  print(i)
+
+
+
+#case2
+
+import math
+
+
+num = int(input())
+
+    
+for i in range(num) : 
+    x1, y1, r1, x2, y2, r2 = map(int, input().split())
+    d = math.sqrt(math.pow(x2-x1,2) + math.pow(y2-y1,2))
+    
+    # 두 원이 겹칠 경우
+    if d == 0 and r1 == r2 :
+      print(-1)
+  
+    # 내접하는 경우
+    elif d == abs(r1 - r2) :
+      print(1)
+
+    # 외접하는 경우
+    elif d == r1 + r2:
+      print(1)
+
+    # 두 교점을 가지는 경우
+    elif d < (r1 + r2) and (d > abs(r1 - r2)):
+      print(2)
+
+    # 그 외의 경우
+    else:
+      print(0)
+
+
+
+
+#references
+3
+0 0 13 40 0 37
+0 0 3 0 7 4
+1 1 1 1 1 5
+
+2
+1
+0
+
+파이썬 switch 문 없이 if문 
+
+교점 구하는 식?? 
+
+case 별 구분
+
+def inter1() : 
+ d = |r1 + r2| 
+
+def inter0() :
+ d > |r1+ r2|
+
+def inter_inner() : 
+ d > |r1 - r2|
+
+def inter_outer() : 
+ d = |r1+ r2|
+
+def inter_same() : 
+ d= r1 = r2
+
+https://blockdmask.tistory.com/522
+https://jimmy-ai.tistory.com/184
+sqrt 제곱근
+pow 제곱
+
+
+3
+0 0 13 40 0 37
+0 0 3 0 7 4
+1 1 1 1 1 5
+
+2
+1
+0
+
+num = int(input())
+
+for i in num: 
+
+x1, y1, r1, x2, y2, r2 = map(int, input().split())
+
+d = math.sqrt(math.pow(x2-x1) + math.pow(y2-y1))
+
+if (d > r1 + r2) 
+ return 0
+else if ( d = r1+ r2) 
+ return 1
+else if ( |r1-r2| < d < r1+r2 )
+ return 2
+else if ( d = |r1-r2| )
+ return 1
+else if ( d < |r1-r2| ) 
+ return 0 
+
+print(return)
+
+
+"""
+    # 두 원이 만나지 않을 경우
+    if d > r1 + r2:
+        return 0
+    
+    if abs(r1-r2) > d :
+        return 0
+
+    if d == 0 and r1!=r2 :
+        return 0
+"""
+
+
+  
