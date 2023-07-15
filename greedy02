@@ -13,12 +13,58 @@ sum = 0
 
 while (True ) :
   for i in range(K) :
+    if ( c == M) : #for 문 만을 빠져나옴 !!! count 앞에 써야 되는 점도 주의 !!! 
+        break
     c += 1
     sum += m
+  if ( c == M) : # for 문 빠져나오고 바로 써야 되는 점도 주의 !!!  
+    break  
   lst.sort()
   c += 1
   sum += lst[3]
-  if ( c == M) : 
-    break
+
 
 print(sum)
+
+
+#모범답안1
+n, m, k = map(int,input().split())
+data = list(map(int, input().split()))
+
+data.sort()
+first = data[n-1]
+second = data[n-2]
+
+result = 0 
+
+while True: 
+  for i in range(k): 
+    if m == 0:
+      break
+    result += first
+    m -= 1
+  if m == 0:
+    break
+  result += second 
+  m -= 1 
+
+print(result)
+
+
+#모범답안2
+n, m, k = map(int, input().split())
+data = list(map(int, input().split()))
+
+data.sort()
+first = data[n-1] 
+second = data[n-2]
+
+#가장 큰 수가 더해지는 횟수
+count = int(m/(k+1)) * k
+count += m % (k + 1)
+
+result = 0 
+result += (count) * first
+result += (m-count) * second
+
+print(result)
