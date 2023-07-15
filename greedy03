@@ -1,0 +1,55 @@
+#이것이 코딩테스트다
+#그리디 > 숫자 카드 게임
+
+h, w = map(int,input().split())
+m = []
+for i in range(h) : 
+  row = list(map(int,input().split()))
+  m.append(row)
+
+#print(m)
+
+#먼저 뽑고자 하는 카드가 포함된 행을 선택한다.
+#그 다음 행의 카드 중 가장 숫자가 낮은 카드를 뽑는다. 
+#결과는 각 행의 min값 중 가장 높은 숫자를 뽑는다.
+
+min_list = []
+for i in range(h) :
+  num = min(m[i]) #m[i]가 가리키는 값 주의!!!
+  min_list.append(num)
+
+result = max(min_list)
+print(result)
+
+#모범답안1
+n, m = map(int, input().split())
+
+result = 0 
+
+for i in range(n) :
+  data = list(map(int, input().split()))
+  #현재 줄에서 가장 작은 수 찾기
+  min_value = min(data)
+  #'가장 작은 수 '중 가장 큰 수 찾기
+  result = max(result, min_value)
+
+print(result)
+
+
+#모범답안 2
+n, m = map(int, input().split())
+
+result = 0 
+
+for i in range(n): 
+  data = list(map(int, input().split()))
+  #현재 줄에서 가장 작은 수 찾기
+  min_value = 10001
+  for a in data:
+    min_value = min(min_value, a)
+  #가장 작은 수 중 가장 큰 수 찾기
+  result = max(result, min_value)
+
+print(result)
+
+
