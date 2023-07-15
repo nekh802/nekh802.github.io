@@ -1,0 +1,24 @@
+#이것이 코딩테스트다
+#그리디 > 큰 수의 법칙
+
+N, M, K = map(int,input().split())
+
+lst = list(map(int, input().split()[:N]))
+#print(lst)
+
+m = max(lst)
+
+c = 0
+sum = 0
+
+while (True ) :
+  for i in range(K) :
+    c += 1
+    sum += m
+  lst.sort()
+  c += 1
+  sum += lst[3]
+  if ( c == M) : 
+    break
+
+print(sum)
