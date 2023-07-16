@@ -25,3 +25,19 @@ for coin in coin_types:
   n %= coin
 
 print(count)
+
+#유사문제
+#https://codeup.kr/problem.php?id=3301
+
+lst = [50000, 10000, 5000, 1000, 500, 100, 50, 10]
+
+n = int(input())
+cnt = 0
+
+for i in range(len(lst)) :
+  if (n == 0 ) :
+    break
+  cnt += n // int(lst[i]) #TypeError: 'list' object cannot be interpreted as an integer
+  n = n % lst[i]
+
+print(cnt)
