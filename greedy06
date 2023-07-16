@@ -1,0 +1,71 @@
+#https://codeup.kr/problem.php?id=3321
+
+n = int(input()) #토핑 종류
+a, b = map(int,input().split()) #도우의 가격/ 토핑의 가격
+c = int(input()) #도우 칼로리
+t_calories = [] #토핑 칼로리
+for i in range(n) :
+  t_calories.append(int(input()))
+
+#1달러 당 열량의 수? 
+#전체 열량/ 전체 달러
+
+#전체 달러
+# a + k*b #k = 선택한 토핑의 개수 
+
+#전체 칼로리
+#c + t_calories 
+### 토핑을 몇 개 선택할 것인지???
+#case 0개 ~ N개 
+#t_calories = sorted(t_calories) #오름차순
+t_calories.sort()
+total_cal = c
+k = 0 
+total_dollar = a
+
+calories_per_dollar =[]
+calories_per_dollar.append(int(c/a))
+print(calories_per_dollar)
+
+for i in range(n) :
+  #칼로리 제일 높은 1개 선택할 경우
+  total_cal += t_calories[n-i-1]
+  k += 1
+  #전체 달러
+  total_dal = a + k*b
+  calories_per_dollar.append(total_cal// total_dal)  #TypeError: unsupported operand type(s) for //: 'list' and 'int'
+  print(calories_per_dollar)
+  
+
+
+print(max(calories_per_dollar))
+
+
+#모범답안
+#토핑종류수
+n = int(input())
+
+#도우가격, 토핑가격
+a, b = map(int, input().split())
+
+#도우칼로리
+dough = int(input())
+
+#토핑의 칼로리
+topping = []
+for _ in range(n):
+  topping.append(int(input()))
+
+# 피자가격 = 도우 + 토핑개수 * 토핑
+# 칼로리(도우 + 선택한 토핑칼로리의 합) / 피자가격(a + k * b)
+#최고의 피자
+result = 0
+topping.sort(reverse=True)
+
+# 계산
+for i in range(n):
+  temp = (dough + sum(topping[0:i + 1])) / (a + (i + 1) * b)
+  result = max(result, temp)
+print(result)
+
+  
