@@ -38,11 +38,11 @@
       <div class="p-main">
         <div class="p-top"><h3>Quarter Diary</h3><span class="status live">App Store 출시</span><span class="repo">quarter-diary</span></div>
         <p class="lede">1년을 네 분기로 나눠 목표를 세우고, 친구와 진행 상황을 실시간으로 공유하는 목표 관리 앱입니다.</p>
-<details><summary>어떻게 만들었나요? <span>＋</span></summary>        <ul>
+<div class="project-description">        <ul>
           <li>분기마다 12주 주간 체크로 진행률을 자동 계산하고, 분기가 끝나면 회고를 남깁니다.</li>
           <li>6자리 초대 코드로 친구를 추가하면 서로의 목표와 연속 달성 기록을 실시간으로 비교합니다.</li>
           <li>Firestore 실시간 스트림과 로컬 캐시로 오프라인에서도 바로 반응합니다.</li>
-        </ul></details>
+        </ul></div>
         <div class="meta">
           <span class="chip">Flutter</span><span class="chip">Firebase Auth</span><span class="chip">Cloud Firestore</span><span class="chip">Local Notifications</span>
           <span class="period">2026.07 – 08</span>
@@ -62,11 +62,11 @@
       <div class="p-main">
         <div class="p-top"><h3>Book Eater</h3><span class="status live">App Store 출시</span><span class="repo">book-eater</span></div>
         <p class="lede">책을 다 읽을 때마다 강아지에게 밥을 주며 독서 습관을 만드는 반려 독서 다이어리입니다.</p>
-<details><summary>어떻게 만들었나요? <span>＋</span></summary>        <ul>
+<div class="project-description">        <ul>
           <li>알라딘 API로 책을 검색해 표지와 쪽수를 채우고, 0.5점 단위 별점과 한 줄 평, 서평을 남깁니다.</li>
           <li>정해 둔 독서 주기(1~12주) 동안 책을 읽지 않으면 강아지가 배고파하다 잠들고, 소모성 인앱 결제로 깨울 수 있습니다.</li>
           <li>Apple·Google 로그인과 초대 코드로 친구를 연결해 서로 읽은 책과 감상을 둘러봅니다. 한국어와 영어를 지원합니다.</li>
-        </ul></details>
+        </ul></div>
         <div class="meta">
           <span class="chip">Flutter</span><span class="chip">Supabase</span><span class="chip">Sign in with Apple</span><span class="chip">In-App Purchase</span><span class="chip">알라딘 API</span>
           <span class="period">2026.08 – 10</span>
@@ -88,11 +88,11 @@
       <div class="p-main">
         <div class="p-top"><h3>Cosmeow Note</h3><span class="status live">App Store 출시</span><span class="repo">MeowNote</span></div>
         <p class="lede">손그림 고양이 메모지 그대로를 화면에 옮긴 iPhone·Mac 메모 앱입니다.</p>
-<details><summary>어떻게 만들었나요? <span>＋</span></summary>        <ul>
+<div class="project-description">        <ul>
           <li>원본 일러스트의 색을 픽셀 그대로 지키면서, 그림 위 좌표에 맞춘 터치 영역으로 메모와 체크리스트를 씁니다.</li>
           <li>여섯 메모장을 전환하고, 입력은 즉시 로컬 파일에 자동 저장됩니다.</li>
           <li>고양이·제목 그림을 외곽선대로 오려 내는 Python 도구와 골든 이미지 테스트로 화면을 검증합니다.</li>
-        </ul></details>
+        </ul></div>
         <div class="meta">
           <span class="chip">Flutter</span><span class="chip">iOS · macOS</span><span class="chip">Golden tests</span><span class="chip">Python · ImageMagick</span>
           <span class="period">2026.09 – 10</span>
@@ -115,11 +115,11 @@
       <div class="p-main">
         <div class="p-top"><h3>Blurshy</h3><span class="status review">App Store 심사 중</span><span class="repo">blurshy</span></div>
         <p class="lede">스크린샷을 찍는 순간 블러 편집 창을 띄워, 공유하기 전에 개인정보를 가려 주는 Mac·iPhone 앱입니다.</p>
-<details><summary>어떻게 만들었나요? <span>＋</span></summary>        <ul>
+<div class="project-description">        <ul>
           <li>Mac: ⌘⇧3 / ⌘⇧4로 찍으면 바로 편집 창이 열리고, 스크린샷을 고른 폴더로 정리합니다. 메뉴 막대에 상주합니다.</li>
           <li>복사한 이미지를 8장까지 쌓아 ⌘V로 한 장씩 붙여넣는 클립보드 스택을 직접 구현했습니다.</li>
           <li>App Store 샌드박스에 맞춰 보안 범위 북마크, 한국어·영어 전환, 새 버전 알림까지 넣었습니다.</li>
-        </ul></details>
+        </ul></div>
         <div class="meta">
           <span class="chip">Flutter</span><span class="chip">Swift · AppKit</span><span class="chip">App Sandbox</span><span class="chip">Share Extension</span>
           <span class="period">2026.10</span>
@@ -146,10 +146,10 @@
       <div class="p-main">
         <div class="p-top"><h3>Leveraged ETF Simulator</h3><span class="status live">라이브 데모</span><span class="repo">leveraged-etf-simulator</span></div>
         <p class="lede">2배·3배 레버리지 ETF가 오래 들고 있으면 왜 기초 자산 수익률의 2배·3배가 되지 않는지 백테스트로 보여 줍니다.</p>
-<details><summary>어떻게 만들었나요? <span>＋</span></summary>        <ul>
+<div class="project-description">        <ul>
           <li>매일 레버리지가 다시 맞춰지는 구조를 시뮬레이션해 변동성 손실(volatility drag)과 복리 효과를 비교합니다.</li>
           <li>AMD 실제 가격 데이터로 백테스트한 Jupyter 노트북과, 누구나 써 볼 수 있는 Streamlit 앱을 함께 만들었습니다.</li>
-        </ul></details>
+        </ul></div>
         <div class="meta">
           <span class="chip">Python</span><span class="chip">pandas · numpy</span><span class="chip">yfinance</span><span class="chip">Streamlit</span>
           <span class="period">2026.02 – 10</span>
@@ -173,11 +173,11 @@
       <div class="p-main">
         <div class="p-top"><h3>Stock Volumer</h3><span class="status live">라이브 데모</span><span class="repo">StockVolumer</span></div>
         <p class="lede">미국 주식의 지금 거래량이 평소 같은 시간대보다 많은지 적은지 판단해 매수·매도 신호를 보여 주는 실시간 대시보드입니다.</p>
-<details><summary>어떻게 만들었나요? <span>＋</span></summary>        <ul>
+<div class="project-description">        <ul>
           <li>최근 20거래일의 같은 시간대 평균과 비교한 배수를 일·5분·1분 단위로 구해 가중 기하평균으로 종합합니다.</li>
           <li>일주일·한 달 보기와, 실적 발표일을 반영한 1주·1달 거래량 예측(80% 범위)까지 제공합니다.</li>
           <li>패키지 설치 없이 Node.js만으로 동작하고, Render에 배포해 웹에서 바로 써 볼 수 있습니다. 분석·예측 로직은 테스트로 검증합니다.</li>
-        </ul></details>
+        </ul></div>
         <div class="meta">
           <span class="chip">Node.js</span><span class="chip">Vanilla JS</span><span class="chip">Yahoo Finance</span><span class="chip">Render</span>
           <span class="period">2026.10</span>
@@ -205,11 +205,11 @@
       <div class="p-main">
         <div class="p-top"><h3>대신 블로거</h3><span class="status local">개인 자동화 도구</span><span class="repo">agentic-blogger</span></div>
         <p class="lede">맛집 사진과 장소만 주면 Claude Code가 사진을 보고 후기를 써서, 네이버 블로그에 발행까지 해 주는 도구입니다.</p>
-<details><summary>어떻게 만들었나요? <span>＋</span></summary>        <ul>
+<div class="project-description">        <ul>
           <li>공식 글쓰기 API가 없는 네이버 에디터를 Playwright로 사람처럼 조작해 사진·동영상·태그를 입력합니다.</li>
           <li>휴대폰 사진은 QR 코드로 맥에 바로 보내고, 동영상은 회전 보정과 얼굴 모자이크를 거쳐 올립니다.</li>
           <li>발행 직전 화면을 캡처해 확인받은 뒤에만 발행하도록 안전장치를 두었습니다.</li>
-        </ul></details>
+        </ul></div>
         <div class="meta">
           <span class="chip">Python</span><span class="chip">Playwright</span><span class="chip">Claude Code Skills</span><span class="chip">ffmpeg</span>
           <span class="period">2026.10</span>
