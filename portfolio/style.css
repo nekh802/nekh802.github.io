@@ -11,3 +11,25 @@
 .chip,.period,.private,.links .private{color:#222}
 .facts small,.facts .stack,.shelf-head>span,.eyebrow,.brand-caption,footer,.footer-name small{color:#333}
 @media(max-width:640px){.intro{padding:42px 0 34px}}
+/* Clear hierarchy: compact descriptions, larger headings and controls. */
+.intro p,.lede{font-size:13px}
+.project-description{font-size:12px}
+.nav{font-size:15px}.brand{font-size:16px}.brand-caption{font-size:13px}
+.eyebrow{font-size:12px}.shelf-head h2{font-size:30px}.count{font-size:14px}
+.p-top h3{font-size:28px}.shelf-head>span{font-size:14px}
+.primary{font-size:16px;padding:14px 22px;gap:30px}
+.links{font-size:15px}.links a{display:inline-flex;align-items:center;min-height:44px}
+.chip{font-size:12px;padding:5px 9px}.period{font-size:12px}
+.status{font-size:12px;padding:5px 9px}.private,.links .private{font-size:12px}
+.facts>span{font-size:14px}.facts b{font-size:38px}.facts small{font-size:12px}
+.facts .stack{font-size:14px}.footer-name small,footer{font-size:14px}
+.cap{font-size:11px}.goal{font-size:13px}.specimen{font-size:13px}
+.shelf-list>div,.ck,.steps li{font-size:12px}.note strong,.receipt strong{font-size:14px}
+.receipt{font-size:11px}.receipt .k{font-size:10px}.legend,.sig{font-size:12px}.pill{font-size:10px}
+@media(max-width:640px){
+.nav{font-size:13px}.nav>div{gap:14px}.brand{font-size:14px}
+.shelf-head h2{font-size:27px}.shelf-head .eyebrow{font-size:11px}
+.p-top h3{font-size:25px}.status{font-size:11px}
+.facts>span{font-size:12px}.facts b{font-size:33px}.facts .stack{font-size:13px}
+.links{font-size:14px;flex-wrap:wrap}.private,.links .private{font-size:11px}
+}
