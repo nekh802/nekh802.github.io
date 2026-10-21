@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Boyoung Kim Portfolio</title>
+<meta name="description" content="App Store 앱 4개, 투자 데이터 도구 2개, 자동화 도구 1개를 만든 1인 개발자 김보영의 포트폴리오.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Boyoung Kim Portfolio">
+<meta property="og:description" content="App Store 앱 4개, 투자 데이터 도구 2개, 자동화 도구 1개를 만든 1인 개발자 포트폴리오.">
+<meta property="og:url" content="https://nekh802.github.io/portfolio/">
+<style>
+:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: 한 사람의 작업대. 상단에 소개, 아래로 분야별 선반(앱 / 투자 데이터 / 자동화), 각 프로젝트는 왼쪽 설명 + 오른쪽 작은 실물 견본 */
+:root {
+  --bg: #f3f5f2;
+  --surface: #ffffff;
+  --ink: #17221d;
+  --muted: #5d6b64;
+  --line: #d9dfda;
+  --accent: #2f6f5e;
+  --accent-soft: #e2eee9;
+  --mark: #c9822b;
+  --live: #2e7d4f;
+  --review: #a06a12;
+  --local: #5a6470;
+  --font-display: "Hahmlet", "Apple SD Gothic Neo", "Noto Serif KR", serif;
+  --font-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121815; --surface: #1a221e; --ink: #e6ece8; --muted: #9aa8a1; --line: #2c3731;
+    --accent: #7cc4ad; --accent-soft: #20332c; --mark: #e0a55a;
+    --live: #6fcf97; --review: #e6b35c; --local: #a3adb8; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121815; --surface: #1a221e; --ink: #e6ece8; --muted: #9aa8a1; --line: #2c3731;
+  --accent: #7cc4ad; --accent-soft: #20332c; --mark: #e0a55a;
+  --live: #6fcf97; --review: #e6b35c; --local: #a3adb8; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font: 400 1rem/1.7 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 4rem;
+}
+.wrap { max-width: 1040px; margin: 0 auto; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+
+/* 소개 */
+.intro { padding-block: 3.5rem 2.5rem; display: grid; gap: 1.25rem; border-bottom: 1px solid var(--line); }
+.handle { font: 500 0.8rem/1 var(--font-mono); color: var(--muted); letter-spacing: 0.06em; }
+.intro h1 { font-size: clamp(2.1rem, 5vw, 3.2rem); line-height: 1.15; font-weight: 700; }
+.intro h1 em { font-style: normal; color: var(--accent); }
+.intro p { margin: 0; max-width: 60ch; color: var(--muted); font-size: 1.05rem; }
+.facts { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font: 400 0.85rem/1.4 var(--font-mono); color: var(--muted); }
+.facts b { color: var(--ink); font-weight: 500; }
+
+/* 분야 */
+.shelf { padding-top: 3rem; display: grid; gap: 1.25rem; }
+.shelf-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.shelf-head h2 { font-size: 1.5rem; font-weight: 700; }
+.shelf-head span { font: 400 0.8rem var(--font-mono); color: var(--muted); }
+
+/* 프로젝트 */
+.project {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  padding: 1.5rem; display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 1.75rem; align-items: start;
+}
+@media (max-width: 760px) { .project { grid-template-columns: minmax(0, 1fr); } .specimen { order: -1; } }
+.p-main { min-width: 0; display: grid; gap: 0.85rem; }
+.p-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; }
+.p-top h3 { font-size: 1.35rem; font-weight: 700; }
+.repo { font: 400 0.78rem var(--font-mono); color: var(--muted); }
+.status { font: 500 0.72rem/1 var(--font-body); padding: 0.35rem 0.6rem; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+.status.live { color: var(--live); }
+.status.review { color: var(--review); }
+.status.local { color: var(--local); }
+.lede { margin: 0; font-size: 1.02rem; max-width: 62ch; }
+.p-main ul { margin: 0; padding-left: 1.1rem; display: grid; gap: 0.3rem; color: var(--muted); max-width: 64ch; }
+.p-main li::marker { color: var(--mark); }
+.meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.chip { font: 400 0.75rem/1 var(--font-mono); padding: 0.35rem 0.5rem; border-radius: 6px; background: var(--accent-soft); color: var(--ink); }
+.period { font: 400 0.78rem var(--font-mono); color: var(--muted); margin-left: auto; font-variant-numeric: tabular-nums; }
+.links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: 0.92rem; font-weight: 500; }
+.links .private { color: var(--muted); font-weight: 400; }
+
+/* 견본: 프로젝트마다 그 프로젝트에만 있는 작은 장면 */
+.specimen {
+  border: 1px solid var(--line); border-radius: 10px; padding: 1rem; background: var(--bg);
+  font: 400 0.75rem/1.4 var(--font-mono); color: var(--muted); display: grid; gap: 0.6rem; min-width: 0;
+}
+.specimen .cap { font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* Quarter Diary: 12주 체크 */
+.weeks { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; }
+.weeks i { aspect-ratio: 1; border-radius: 3px; border: 1px solid var(--line); background: var(--surface); }
+.weeks i.on { background: var(--accent); border-color: var(--accent); }
+.goal { display: flex; justify-content: space-between; color: var(--ink); }
+
+/* Book Eater: 포만감 게이지와 서재 */
+.dog { display: flex; align-items: center; gap: 0.6rem; color: var(--ink); }
+.dog-face { width: 34px; height: 34px; border-radius: 50%; background: var(--accent-soft); display: grid; place-items: center; font-size: 1.1rem; flex: none; }
+.gauge { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.gauge b { display: block; height: 100%; width: 70%; background: var(--mark); border-radius: 4px; }
+.shelf-list { display: grid; gap: 0.35rem; font-family: var(--font-body); font-size: 0.78rem; color: var(--ink); }
+.shelf-list div { display: flex; justify-content: space-between; gap: 0.5rem; min-width: 0; }
+.shelf-list span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.stars { color: var(--mark); letter-spacing: 1px; white-space: nowrap; font-family: var(--font-mono); }
+
+/* Cosmeow Note: 체크리스트 메모 */
+.note { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem; display: grid; gap: 0.35rem; color: var(--ink); font-family: var(--font-body); font-size: 0.8rem; }
+.note .ck { display: flex; gap: 0.45rem; align-items: center; }
+.note .box { width: 12px; height: 12px; border: 1.5px solid var(--muted); border-radius: 3px; flex: none; }
+.note .box.done { background: var(--mark); border-color: var(--mark); }
+.note s { color: var(--muted); }
+
+/* Blurshy: 블러 처리된 주문서 */
+.receipt { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem; display: grid; gap: 0.45rem; font-family: var(--font-body); color: var(--ink); font-size: 0.78rem; }
+.receipt .k { color: var(--muted); font-size: 0.68rem; }
+.blurred { filter: blur(3.5px); user-select: none; }
+
+/* 레버리지 ETF: 선 그래프 */
+.specimen svg { width: 100%; height: auto; display: block; }
+.legend { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+.legend span::before { content: ""; display: inline-block; width: 10px; height: 2px; margin-right: 5px; vertical-align: middle; background: var(--c); }
+
+/* StockVolumer: 신호 */
+.sig { display: grid; grid-template-columns: auto 1fr auto; gap: 0.35rem 0.6rem; align-items: center; color: var(--ink); font-variant-numeric: tabular-nums; }
+.bar { height: 6px; border-radius: 3px; background: var(--line); position: relative; overflow: hidden; }
+.bar b { position: absolute; inset: 0 auto 0 0; background: var(--c); border-radius: 3px; }
+.pill { font-family: var(--font-body); font-size: 0.68rem; padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid var(--c); color: var(--c); }
+
+/* 대신 블로거: 단계 */
+.steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.45rem; counter-reset: s; }
+.steps li { display: flex; gap: 0.55rem; align-items: baseline; color: var(--ink); font-family: var(--font-body); font-size: 0.8rem; counter-increment: s; }
+.steps li::before { content: counter(s); font: 500 0.7rem/1 var(--font-mono); color: var(--accent); width: 1.1rem; height: 1.1rem; border: 1px solid var(--accent); border-radius: 50%; display: inline-grid; place-items: center; flex: none; }
+
+footer { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: space-between; color: var(--muted); font-size: 0.85rem; }
+@media (prefers-reduced-motion: no-preference) { .project { transition: border-color 0.2s; } .project:hover { border-color: var(--accent); } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="intro">
+    <div class="handle">github.com/nekh802</div>
+    <h1>Portfolio</h1>
+    <p>Flutter로 iPhone·Mac 앱을 만들어 App Store에 출시하고, 투자 데이터를 직접 분석하는 도구와 반복 작업을 맡기는 자동화 도구를 만듭니다. 기획부터 디자인, 개발, 스토어 심사 대응까지 혼자 진행합니다.</p>
+    <div class="facts">
+      <span><b>4</b> App Store 앱 (3 출시 · 1 심사 중)</span>
+      <span><b>7</b> 프로젝트</span>
+      <span>Flutter · Swift · Python · Node.js</span>
+    </div>
+  </header>
+
+  <section class="shelf" aria-labelledby="apps">
+    <div class="shelf-head"><h2 id="apps">App Store 앱</h2><span>Flutter · iOS / macOS</span></div>
+
+    <article class="project">
+      <div class="p-main">
+        <div class="p-top"><h3>Quarter Diary</h3><span class="status live">App Store 출시</span><span class="repo">quarter-diary</span></div>
+        <p class="lede">1년을 네 분기로 나눠 목표를 세우고, 친구와 진행 상황을 실시간으로 공유하는 목표 관리 앱입니다.</p>
+        <ul>
+          <li>분기마다 12주 주간 체크로 진행률을 자동 계산하고, 분기가 끝나면 회고를 남깁니다.</li>
+          <li>6자리 초대 코드로 친구를 추가하면 서로의 목표와 연속 달성 기록을 실시간으로 비교합니다.</li>
+          <li>Firestore 실시간 스트림과 로컬 캐시로 오프라인에서도 바로 반응합니다.</li>
+        </ul>
+        <div class="meta">
+          <span class="chip">Flutter</span><span class="chip">Firebase Auth</span><span class="chip">Cloud Firestore</span><span class="chip">Local Notifications</span>
+          <span class="period">2026.07 – 08</span>
+        </div>
+        <div class="links"><a href="https://apps.apple.com/kr/app/quarter-diary/id6790764953" target="_blank" rel="noopener">App Store에서 보기</a><span class="private">비공개 저장소</span></div>
+      </div>
+      <div class="specimen" aria-hidden="true">
+        <div class="cap">Q4 · 12주 체크</div>
+        <div class="goal"><span>📚 책 6권 읽기</span><span>58%</span></div>
+        <div class="weeks"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="goal"><span>🏃 주 3회 달리기</span><span>75%</span></div>
+        <div class="weeks"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="p-main">
+        <div class="p-top"><h3>Book Eater</h3><span class="status live">App Store 출시</span><span class="repo">book-eater</span></div>
+        <p class="lede">책을 다 읽을 때마다 강아지에게 밥을 주며 독서 습관을 만드는 반려 독서 다이어리입니다.</p>
+        <ul>
+          <li>알라딘 API로 책을 검색해 표지와 쪽수를 채우고, 0.5점 단위 별점과 한 줄 평, 서평을 남깁니다.</li>
+          <li>정해 둔 독서 주기(1~12주) 동안 책을 읽지 않으면 강아지가 배고파하다 잠들고, 소모성 인앱 결제로 깨울 수 있습니다.</li>
+          <li>Apple·Google 로그인과 초대 코드로 친구를 연결해 서로 읽은 책과 감상을 둘러봅니다. 한국어와 영어를 지원합니다.</li>
+        </ul>
+        <div class="meta">
+          <span class="chip">Flutter</span><span class="chip">Supabase</span><span class="chip">Sign in with Apple</span><span class="chip">In-App Purchase</span><span class="chip">알라딘 API</span>
+          <span class="period">2026.08 – 10</span>
+        </div>
+        <div class="links"><a href="https://apps.apple.com/kr/app/book-eater-reading-tracker/id6807840738" target="_blank" rel="noopener">App Store에서 보기</a><span class="private">비공개 저장소</span></div>
+      </div>
+      <div class="specimen" aria-hidden="true">
+        <div class="cap">먹이주기 · 포만감</div>
+        <div class="dog"><span class="dog-face">🐶</span><div style="flex:1; display:grid; gap:0.3rem"><span>오늘 책 한 권 먹었어요</span><div class="gauge"><b></b></div></div></div>
+        <div class="shelf-list">
+          <div><span>소년이 온다</span><span class="stars">★★★★★</span></div>
+          <div><span>도둑맞은 집중력</span><span class="stars">★★★★½</span></div>
+          <div><span>불편한 편의점</span><span class="stars">★★★½</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="p-main">
+        <div class="p-top"><h3>Cosmeow Note</h3><span class="status live">App Store 출시</span><span class="repo">MeowNote</span></div>
+        <p class="lede">손그림 고양이 메모지 그대로를 화면에 옮긴 iPhone·Mac 메모 앱입니다.</p>
+        <ul>
+          <li>원본 일러스트의 색을 픽셀 그대로 지키면서, 그림 위 좌표에 맞춘 터치 영역으로 메모와 체크리스트를 씁니다.</li>
+          <li>여섯 메모장을 전환하고, 입력은 즉시 로컬 파일에 자동 저장됩니다.</li>
+          <li>고양이·제목 그림을 외곽선대로 오려 내는 Python 도구와 골든 이미지 테스트로 화면을 검증합니다.</li>
+        </ul>
+        <div class="meta">
+          <span class="chip">Flutter</span><span class="chip">iOS · macOS</span><span class="chip">Golden tests</span><span class="chip">Python · ImageMagick</span>
+          <span class="period">2026.09 – 10</span>
+        </div>
+        <div class="links"><a href="https://apps.apple.com/kr/app/cosmeow-note/id6814067820" target="_blank" rel="noopener">App Store에서 보기</a><span class="private">비공개 저장소</span></div>
+      </div>
+      <div class="specimen" aria-hidden="true">
+        <div class="cap">메모장 3 / 6</div>
+        <div class="note">
+          <strong>주말 장보기</strong>
+          <span class="ck"><span class="box done"></span><s>고양이 모래</s></span>
+          <span class="ck"><span class="box done"></span><s>우유, 계란</s></span>
+          <span class="ck"><span class="box"></span>참치 캔 3개</span>
+          <span class="ck"><span class="box"></span>화분 흙</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="p-main">
+        <div class="p-top"><h3>Blurshy</h3><span class="status review">App Store 심사 중</span><span class="repo">blurshy</span></div>
+        <p class="lede">스크린샷을 찍는 순간 블러 편집 창을 띄워, 공유하기 전에 개인정보를 가려 주는 Mac·iPhone 앱입니다.</p>
+        <ul>
+          <li>Mac: ⌘⇧3 / ⌘⇧4로 찍으면 바로 편집 창이 열리고, 스크린샷을 고른 폴더로 정리합니다. 메뉴 막대에 상주합니다.</li>
+          <li>복사한 이미지를 8장까지 쌓아 ⌘V로 한 장씩 붙여넣는 클립보드 스택을 직접 구현했습니다.</li>
+          <li>App Store 샌드박스에 맞춰 보안 범위 북마크, 한국어·영어 전환, 새 버전 알림까지 넣었습니다.</li>
+        </ul>
+        <div class="meta">
+          <span class="chip">Flutter</span><span class="chip">Swift · AppKit</span><span class="chip">App Sandbox</span><span class="chip">Share Extension</span>
+          <span class="period">2026.10</span>
+        </div>
+        <div class="links"><a href="https://nekh802.github.io/blurshy/privacy.html" target="_blank" rel="noopener">개인정보 처리방침</a><span class="private">앱 코드는 비공개 저장소</span></div>
+      </div>
+      <div class="specimen" aria-hidden="true">
+        <div class="cap">편집 창 · 블러 적용</div>
+        <div class="receipt">
+          <strong>주문이 완료됐어요</strong>
+          <div><div class="k">받는 분</div><div class="blurred">이지민</div></div>
+          <div><div class="k">연락처</div><div class="blurred">010-5821-3907</div></div>
+          <div><div class="k">주소</div><div class="blurred">서울시 마포구 월드컵로 123</div></div>
+          <div><div class="k">주문 번호</div><div>A7F3-9921-KX</div></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="shelf" aria-labelledby="finance">
+    <div class="shelf-head"><h2 id="finance">투자 데이터 도구</h2><span>Python · Node.js</span></div>
+
+    <article class="project">
+      <div class="p-main">
+        <div class="p-top"><h3>Leveraged ETF Simulator</h3><span class="status live">라이브 데모</span><span class="repo">leveraged-etf-simulator</span></div>
+        <p class="lede">2배·3배 레버리지 ETF가 오래 들고 있으면 왜 기초 자산 수익률의 2배·3배가 되지 않는지 백테스트로 보여 줍니다.</p>
+        <ul>
+          <li>매일 레버리지가 다시 맞춰지는 구조를 시뮬레이션해 변동성 손실(volatility drag)과 복리 효과를 비교합니다.</li>
+          <li>AMD 실제 가격 데이터로 백테스트한 Jupyter 노트북과, 누구나 써 볼 수 있는 Streamlit 앱을 함께 만들었습니다.</li>
+        </ul>
+        <div class="meta">
+          <span class="chip">Python</span><span class="chip">pandas · numpy</span><span class="chip">yfinance</span><span class="chip">Streamlit</span>
+          <span class="period">2026.02 – 10</span>
+        </div>
+        <div class="links"><a href="https://leveraged-etf-simulator.streamlit.app/" target="_blank" rel="noopener">데모 열기 (Streamlit)</a><a href="https://github.com/nekh802/leveraged-etf-simulator" target="_blank" rel="noopener">GitHub 저장소</a></div>
+      </div>
+      <div class="specimen" aria-hidden="true">
+        <div class="cap">같은 등락 반복 · 예시</div>
+        <svg viewBox="0 0 220 110" role="presentation">
+          <line x1="10" y1="40" x2="210" y2="40" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+          <polyline fill="none" stroke="var(--muted)" stroke-width="1.5" points="10,40 30,32 50,41 70,33 90,42 110,34 130,43 150,35 170,44 190,36 210,45"/>
+          <polyline fill="none" stroke="var(--mark)" stroke-width="2" points="10,40 30,16 50,46 70,26 90,56 110,38 130,66 150,50 170,76 190,62 210,88"/>
+          <text x="10" y="104" fill="var(--muted)" font-size="9" font-family="IBM Plex Mono, monospace">시작가</text>
+          <text x="210" y="104" text-anchor="end" fill="var(--muted)" font-size="9" font-family="IBM Plex Mono, monospace">20일 뒤</text>
+        </svg>
+        <div class="legend"><span style="--c: var(--muted)">1배</span><span style="--c: var(--mark)">3배</span></div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="p-main">
+        <div class="p-top"><h3>Stock Volumer</h3><span class="status live">라이브 데모</span><span class="repo">StockVolumer</span></div>
+        <p class="lede">미국 주식의 지금 거래량이 평소 같은 시간대보다 많은지 적은지 판단해 매수·매도 신호를 보여 주는 실시간 대시보드입니다.</p>
+        <ul>
+          <li>최근 20거래일의 같은 시간대 평균과 비교한 배수를 일·5분·1분 단위로 구해 가중 기하평균으로 종합합니다.</li>
+          <li>일주일·한 달 보기와, 실적 발표일을 반영한 1주·1달 거래량 예측(80% 범위)까지 제공합니다.</li>
+          <li>패키지 설치 없이 Node.js만으로 동작하고, Render에 배포해 웹에서 바로 써 볼 수 있습니다. 분석·예측 로직은 테스트로 검증합니다.</li>
+        </ul>
+        <div class="meta">
+          <span class="chip">Node.js</span><span class="chip">Vanilla JS</span><span class="chip">Yahoo Finance</span><span class="chip">Render</span>
+          <span class="period">2026.10</span>
+        </div>
+        <div class="links"><a href="https://stockvolumer.onrender.com/" target="_blank" rel="noopener">데모 열기</a><span class="private">비공개 저장소</span></div>
+      </div>
+      <div class="specimen" aria-hidden="true">
+        <div class="cap">종합 배수 · 예시</div>
+        <div class="sig">
+          <span>NVDA</span><span class="bar" style="--c: var(--live)"><b style="width: 86%"></b></span><span class="pill" style="--c: var(--live)">매수 고려</span>
+          <span></span><span>1.82× ▲</span><span></span>
+          <span>AAPL</span><span class="bar" style="--c: var(--local)"><b style="width: 48%"></b></span><span class="pill" style="--c: var(--local)">관망</span>
+          <span></span><span>1.04× ▲</span><span></span>
+          <span>TSLA</span><span class="bar" style="--c: var(--review)"><b style="width: 30%"></b></span><span class="pill" style="--c: var(--review)">매도 고려</span>
+          <span></span><span>0.64× ▼</span><span></span>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="shelf" aria-labelledby="automation">
+    <div class="shelf-head"><h2 id="automation">자동화</h2><span>Python · Claude Code</span></div>
+
+    <article class="project">
+      <div class="p-main">
+        <div class="p-top"><h3>대신 블로거</h3><span class="status local">개인 자동화 도구</span><span class="repo">agentic-blogger</span></div>
+        <p class="lede">맛집 사진과 장소만 주면 Claude Code가 사진을 보고 후기를 써서, 네이버 블로그에 발행까지 해 주는 도구입니다.</p>
+        <ul>
+          <li>공식 글쓰기 API가 없는 네이버 에디터를 Playwright로 사람처럼 조작해 사진·동영상·태그를 입력합니다.</li>
+          <li>휴대폰 사진은 QR 코드로 맥에 바로 보내고, 동영상은 회전 보정과 얼굴 모자이크를 거쳐 올립니다.</li>
+          <li>발행 직전 화면을 캡처해 확인받은 뒤에만 발행하도록 안전장치를 두었습니다.</li>
+        </ul>
+        <div class="meta">
+          <span class="chip">Python</span><span class="chip">Playwright</span><span class="chip">Claude Code Skills</span><span class="chip">ffmpeg</span>
+          <span class="period">2026.10</span>
+        </div>
+        <div class="links"><span class="private">비공개 저장소</span></div>
+      </div>
+      <div class="specimen" aria-hidden="true">
+        <div class="cap">/blog-review 한 줄로</div>
+        <ol class="steps">
+          <li>사진·동영상 정리</li>
+          <li>사진을 보고 후기 작성</li>
+          <li>미리보기 확인</li>
+          <li>네이버 블로그 발행</li>
+        </ol>
+      </div>
+    </article>
+  </section>
+
+  <footer>
+    <span>김보영 · Boyoung Kim</span>
+    <a href="https://github.com/nekh802" target="_blank" rel="noopener">github.com/nekh802</a>
+  </footer>
+</div>
+
+</body>
+</html>
