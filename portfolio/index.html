@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Boyoung Kim Portfolio</title>
-<meta name="description" content="App Store 앱 4개, 투자 데이터 도구 2개, 자동화 도구 1개를 만든 1인 개발자 김보영의 포트폴리오.">
+<meta name="description" content="App Store 앱 4개와 Gmail 정리 웹앱, 투자 데이터 도구, 자동화 도구를 만든 1인 개발자 김보영의 포트폴리오.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Boyoung Kim Portfolio">
-<meta property="og:description" content="App Store 앱 4개, 투자 데이터 도구 2개, 자동화 도구 1개를 만든 1인 개발자 포트폴리오.">
+<meta property="og:description" content="App Store 앱 4개와 Gmail 정리 웹앱, 투자 데이터 도구, 자동화 도구를 만든 1인 개발자 포트폴리오.">
 <meta property="og:url" content="https://nekh802.github.io/portfolio/">
 
 
@@ -27,7 +27,7 @@
     <p>안녕하세요, 1인 개발자 김보영입니다.<br>일상의 아이디어를 iPhone·Mac 앱으로, 궁금한 데이터를 분석 도구로 만듭니다. 기획부터 디자인, 개발, App Store 출시까지 직접 이어갑니다.</p>
     <a class="primary" href="#apps">만든 것들 둘러보기 <span>↘</span></a></div>
   </header>
-  <div class="facts"><span><b>04</b><span>App Store 앱<small>3 출시 · 1 심사 중</small></span></span><span><b>07</b><span>직접 만든 프로젝트<small>아이디어부터 완성까지</small></span></span><span class="stack">Flutter · Swift · Python · Node.js</span></div>
+  <div class="facts"><span><b>04</b><span>App Store 앱<small>3 출시 · 1 심사 중</small></span></span><span><b>08</b><span>직접 만든 프로젝트<small>아이디어부터 완성까지</small></span></span><span class="stack">Flutter · Swift · Python · Node.js</span></div>
 
 
   <main><section class="shelf apps-grid" aria-labelledby="apps">
@@ -198,7 +198,7 @@
   </section>
 
   <section class="shelf" aria-labelledby="automation">
-    <div class="shelf-head"><div><div class="eyebrow">03 / LESS REPETITION</div><h2 id="automation">반복은 도구에게<span class="count">01</span></h2></div><span>Python · Claude Code</span></div>
+    <div class="shelf-head"><div><div class="eyebrow">03 / LESS REPETITION</div><h2 id="automation">반복은 도구에게<span class="count">02</span></h2></div><span>Python · Node.js · Claude Code</span></div>
 
     <article class="project blog">
       <div class="p-main">
@@ -213,7 +213,7 @@
           <span class="chip">Python</span><span class="chip">Playwright</span><span class="chip">Claude Code Skills</span><span class="chip">ffmpeg</span>
           <span class="period">2026.10</span>
         </div>
-        <div class="links"><span class="private">비공개 저장소</span></div>
+        <div class="links"><a href="https://github.com/nekh802/mailroom" target="_blank" rel="noopener">GitHub 저장소</a></div>
       </div>
       <div class="specimen" aria-hidden="true">
         <div class="cap">/blog-review 한 줄로</div>
@@ -223,6 +223,30 @@
           <li>미리보기 확인</li>
           <li>네이버 블로그 발행</li>
         </ol>
+      </div>
+    </article>
+    <article class="project mailroom">
+      <div class="p-main">
+        <div class="p-top"><h3>Mailroom</h3><span class="status local">개인용 웹앱</span><span class="repo">mailroom</span></div>
+        <p class="lede">자연어로 Gmail을 정리하고, 중요한 메일은 보호 날짜로 지키는 개인용 정리 에이전트입니다.</p>
+        <div class="project-description"><ul>
+          <li>메일 내용은 AI에 보내지 않고 정리 요청만 해석해 조건에 맞는 메일을 찾습니다.</li>
+          <li>대상과 조건을 확인한 뒤 Gmail 휴지통으로 이동하며, 영구 삭제는 하지 않습니다.</li>
+          <li>보호 날짜를 실행 직전에도 재확인하고, 반복 정리는 후보를 준비한 뒤 직접 확인받습니다.</li>
+        </ul></div>
+        <div class="meta">
+          <span class="chip">Node.js</span><span class="chip">Vanilla JS</span><span class="chip">Gmail API</span><span class="chip">OpenAI</span><span class="chip">SQLite · AES-GCM</span>
+          <span class="period">2026.10</span>
+        </div>
+        <div class="links"><span class="private">비공개 저장소</span></div>
+      </div>
+      <div class="specimen mailroom-specimen" aria-hidden="true">
+        <div class="cap">정리 후보 · 확인 대기</div>
+        <div class="shelf-list">
+          <div><span>읽은 프로모션</span><span class="mail-count">24개</span></div>
+          <div><span>보호 날짜</span><span class="mail-safe">2026.09.01 유지</span></div>
+          <div><span>실행 방식</span><span class="mail-safe">확인 후 휴지통</span></div>
+        </div>
       </div>
     </article>
   </section>

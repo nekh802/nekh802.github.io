@@ -33,3 +33,7 @@
 .facts>span{font-size:12px}.facts b{font-size:33px}.facts .stack{font-size:13px}
 .links{font-size:14px;flex-wrap:wrap}.private,.links .private{font-size:11px}
 }
+.mailroom-specimen{background:#e6eee8;--line:#d5e1d8;--ink:#344b3d;--muted:#64776b;--accent:#4d8062}
+.mailroom-specimen .shelf-list{background:#ffffffc9;border-color:#d5e1d8;box-shadow:none}
+.mailroom-specimen .shelf-list>div{display:flex;justify-content:space-between;gap:10px}
+.mailroom-specimen .mail-count,.mailroom-specimen .mail-safe{color:#3d765b;white-space:nowrap}
