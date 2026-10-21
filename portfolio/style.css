@@ -3,3 +3,11 @@
 .project-description{font-size:12px;color:var(--muted)}
 .project-description ul{padding-left:17px;line-height:1.85;margin:0}
 .project-description li+li{margin-top:6px}
+
+/* Text-first introduction and high-contrast body copy. */
+.intro{grid-template-columns:1fr;min-height:0;padding:64px 0 48px}
+.intro p{max-width:680px;color:#111}
+.lede,.project-description,.p-main li{color:#111}
+.chip,.period,.private,.links .private{color:#222}
+.facts small,.facts .stack,.shelf-head>span,.eyebrow,.brand-caption,footer,.footer-name small{color:#333}
+@media(max-width:640px){.intro{padding:42px 0 34px}}
