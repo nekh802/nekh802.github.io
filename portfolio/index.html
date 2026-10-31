@@ -33,79 +33,27 @@
   <main><section class="shelf apps-grid" aria-labelledby="apps">
     <div class="shelf-head"><div><div class="eyebrow">01 / APPS FOR EVERYDAY</div><h2 id="apps">일상에 스며드는 앱<span class="count">05</span></h2></div><span>직접 만들고, 출시하고, 다듬습니다.</span></div>
 
-    <article class="project diary">
+    <article class="project pokecard">
       <div class="p-main">
-        <div class="p-top"><h3>Quarter Diary</h3><span class="status live">App Store 출시</span><span class="repo">quarter-diary</span></div>
-        <p class="lede">1년을 네 분기로 나눠 목표를 세우고, 친구와 진행 상황을 실시간으로 공유하는 목표 관리 앱입니다.</p>
-<div class="project-description">        <ul>
-          <li>분기마다 12주 주간 체크로 진행률을 자동 계산하고, 분기가 끝나면 회고를 남깁니다.</li>
-          <li>6자리 초대 코드로 친구를 추가하면 서로의 목표와 연속 달성 기록을 실시간으로 비교합니다.</li>
-          <li>Firestore 실시간 스트림과 로컬 캐시로 오프라인에서도 바로 반응합니다.</li>
+        <div class="p-top"><h3>PokeCard Exchange</h3><span class="status live">라이브 데모</span><span class="repo">pokecard-exchange</span></div>
+        <p class="lede">등급 인증된 포켓몬 카드를 한국·미국·일본·중국 사이에서 안전하게 사고파는 에스크로 중개 플랫폼입니다.</p>
+        <div class="project-description"><ul>
+          <li>PSA 인증번호로 등급을 조회해 매물을 등록하고, 같은 인증번호는 동시에 한 번만 팔 수 있게 막습니다.</li>
+          <li>결제금은 플랫폼이 보관했다가 FedEx 배송과 수령 확인 뒤 판매자에게 정산하고, 분쟁은 운영자가 환불·정산을 결정합니다.</li>
+          <li>4개 통화를 실시간 환율로 환산하고, PayPal·바이낸스 페이 결제와 Google·Facebook·Apple 로그인, 4개 언어를 지원합니다.</li>
         </ul></div>
         <div class="meta">
-          <span class="chip">Flutter</span><span class="chip">Firebase Auth</span><span class="chip">Cloud Firestore</span><span class="chip">Local Notifications</span>
-          <span class="period">2026.07 – 08</span>
+          <span class="chip">TypeScript</span><span class="chip">React · Vite</span><span class="chip">Express</span><span class="chip">SQLite</span><span class="chip">PayPal</span><span class="chip">Render</span>
+          <span class="period">2026.10</span>
         </div>
-        <div class="links"><a href="https://apps.apple.com/kr/app/quarter-diary/id6790764953" target="_blank" rel="noopener">App Store에서 보기</a><span class="private">비공개 저장소</span></div>
+        <div class="links"><a href="https://pokecard-exchange.onrender.com/" target="_blank" rel="noopener">데모 열기</a><span class="private">비공개 저장소</span></div>
       </div>
-      <div class="specimen" aria-hidden="true">
-        <div class="cap">Q4 · 12주 체크</div>
-        <div class="goal"><span>📚 책 6권 읽기</span><span>58%</span></div>
-        <div class="weeks"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="goal"><span>🏃 주 3회 달리기</span><span>75%</span></div>
-        <div class="weeks"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
-      </div>
-    </article>
-
-    <article class="project book">
-      <div class="p-main">
-        <div class="p-top"><h3>Book Eater</h3><span class="status live">App Store 출시</span><span class="repo">book-eater</span></div>
-        <p class="lede">책을 다 읽을 때마다 강아지에게 밥을 주며 독서 습관을 만드는 반려 독서 다이어리입니다.</p>
-<div class="project-description">        <ul>
-          <li>알라딘 API로 책을 검색해 표지와 쪽수를 채우고, 0.5점 단위 별점과 한 줄 평, 서평을 남깁니다.</li>
-          <li>정해 둔 독서 주기(1~12주) 동안 책을 읽지 않으면 강아지가 배고파하다 잠들고, 소모성 인앱 결제로 깨울 수 있습니다.</li>
-          <li>Apple·Google 로그인과 초대 코드로 친구를 연결해 서로 읽은 책과 감상을 둘러봅니다. 한국어와 영어를 지원합니다.</li>
-        </ul></div>
-        <div class="meta">
-          <span class="chip">Flutter</span><span class="chip">Supabase</span><span class="chip">Sign in with Apple</span><span class="chip">In-App Purchase</span><span class="chip">알라딘 API</span>
-          <span class="period">2026.08 – 10</span>
-        </div>
-        <div class="links"><a href="https://apps.apple.com/kr/app/book-eater-reading-tracker/id6807840738" target="_blank" rel="noopener">App Store에서 보기</a><span class="private">비공개 저장소</span></div>
-      </div>
-      <div class="specimen" aria-hidden="true">
-        <div class="cap">먹이주기 · 포만감</div>
-        <div class="dog"><span class="dog-face">🐶</span><div style="flex:1; display:grid; gap:0.3rem"><span>오늘 책 한 권 먹었어요</span><div class="gauge"><b></b></div></div></div>
+      <div class="specimen pokecard-specimen" aria-hidden="true">
+        <div class="cap">주문 · 에스크로 진행</div>
         <div class="shelf-list">
-          <div><span>소년이 온다</span><span class="stars">★★★★★</span></div>
-          <div><span>도둑맞은 집중력</span><span class="stars">★★★★½</span></div>
-          <div><span>불편한 편의점</span><span class="stars">★★★½</span></div>
-        </div>
-      </div>
-    </article>
-
-    <article class="project cat">
-      <div class="p-main">
-        <div class="p-top"><h3>Cosmeow Note</h3><span class="status live">App Store 출시</span><span class="repo">MeowNote</span></div>
-        <p class="lede">손그림 고양이 메모지 그대로를 화면에 옮긴 iPhone·Mac 메모 앱입니다.</p>
-<div class="project-description">        <ul>
-          <li>원본 일러스트의 색을 픽셀 그대로 지키면서, 그림 위 좌표에 맞춘 터치 영역으로 메모와 체크리스트를 씁니다.</li>
-          <li>여섯 메모장을 전환하고, 입력은 즉시 로컬 파일에 자동 저장됩니다.</li>
-          <li>고양이·제목 그림을 외곽선대로 오려 내는 Python 도구와 골든 이미지 테스트로 화면을 검증합니다.</li>
-        </ul></div>
-        <div class="meta">
-          <span class="chip">Flutter</span><span class="chip">iOS · macOS</span><span class="chip">Golden tests</span><span class="chip">Python · ImageMagick</span>
-          <span class="period">2026.09 – 10</span>
-        </div>
-        <div class="links"><a href="https://apps.apple.com/kr/app/cosmeow-note/id6814067820" target="_blank" rel="noopener">App Store에서 보기</a><span class="private">비공개 저장소</span></div>
-      </div>
-      <div class="specimen" aria-hidden="true">
-        <div class="cap">메모장 3 / 6</div>
-        <div class="note">
-          <strong>주말 장보기</strong>
-          <span class="ck"><span class="box done"></span><s>고양이 모래</s></span>
-          <span class="ck"><span class="box done"></span><s>우유, 계란</s></span>
-          <span class="ck"><span class="box"></span>참치 캔 3개</span>
-          <span class="ck"><span class="box"></span>화분 흙</span>
+          <div><span>Charizard · 베이스 세트</span><span class="card-grade">PSA 10</span></div>
+          <div><span>미국 → 한국</span><span class="card-step">FedEx 배송 중</span></div>
+          <div><span>판매자 정산</span><span class="card-step">수령 확인 후 85%</span></div>
         </div>
       </div>
     </article>
@@ -137,61 +85,86 @@
       </div>
     </article>
 
-    <article class="project pokecard">
+    <article class="project cat">
       <div class="p-main">
-        <div class="p-top"><h3>PokeCard Exchange</h3><span class="status live">라이브 데모</span><span class="repo">pokecard-exchange</span></div>
-        <p class="lede">등급 인증된 포켓몬 카드를 한국·미국·일본·중국 사이에서 안전하게 사고파는 에스크로 중개 플랫폼입니다.</p>
-        <div class="project-description"><ul>
-          <li>PSA 인증번호로 등급을 조회해 매물을 등록하고, 같은 인증번호는 동시에 한 번만 팔 수 있게 막습니다.</li>
-          <li>결제금은 플랫폼이 보관했다가 FedEx 배송과 수령 확인 뒤 판매자에게 정산하고, 분쟁은 운영자가 환불·정산을 결정합니다.</li>
-          <li>4개 통화를 실시간 환율로 환산하고, PayPal·바이낸스 페이 결제와 Google·Facebook·Apple 로그인, 4개 언어를 지원합니다.</li>
+        <div class="p-top"><h3>Cosmeow Note</h3><span class="status live">App Store 출시</span><span class="repo">MeowNote</span></div>
+        <p class="lede">손그림 고양이 메모지 그대로를 화면에 옮긴 iPhone·Mac 메모 앱입니다.</p>
+<div class="project-description">        <ul>
+          <li>원본 일러스트의 색을 픽셀 그대로 지키면서, 그림 위 좌표에 맞춘 터치 영역으로 메모와 체크리스트를 씁니다.</li>
+          <li>여섯 메모장을 전환하고, 입력은 즉시 로컬 파일에 자동 저장됩니다.</li>
+          <li>고양이·제목 그림을 외곽선대로 오려 내는 Python 도구와 골든 이미지 테스트로 화면을 검증합니다.</li>
         </ul></div>
         <div class="meta">
-          <span class="chip">TypeScript</span><span class="chip">React · Vite</span><span class="chip">Express</span><span class="chip">SQLite</span><span class="chip">PayPal</span><span class="chip">Render</span>
-          <span class="period">2026.10</span>
+          <span class="chip">Flutter</span><span class="chip">iOS · macOS</span><span class="chip">Golden tests</span><span class="chip">Python · ImageMagick</span>
+          <span class="period">2026.09 – 10</span>
         </div>
-        <div class="links"><a href="https://pokecard-exchange.onrender.com/" target="_blank" rel="noopener">데모 열기</a><span class="private">비공개 저장소</span></div>
+        <div class="links"><a href="https://apps.apple.com/kr/app/cosmeow-note/id6814067820" target="_blank" rel="noopener">App Store에서 보기</a><span class="private">비공개 저장소</span></div>
       </div>
-      <div class="specimen pokecard-specimen" aria-hidden="true">
-        <div class="cap">주문 · 에스크로 진행</div>
-        <div class="shelf-list">
-          <div><span>Charizard · 베이스 세트</span><span class="card-grade">PSA 10</span></div>
-          <div><span>미국 → 한국</span><span class="card-step">FedEx 배송 중</span></div>
-          <div><span>판매자 정산</span><span class="card-step">수령 확인 후 85%</span></div>
+      <div class="specimen" aria-hidden="true">
+        <div class="cap">메모장 3 / 6</div>
+        <div class="note">
+          <strong>주말 장보기</strong>
+          <span class="ck"><span class="box done"></span><s>고양이 모래</s></span>
+          <span class="ck"><span class="box done"></span><s>우유, 계란</s></span>
+          <span class="ck"><span class="box"></span>참치 캔 3개</span>
+          <span class="ck"><span class="box"></span>화분 흙</span>
         </div>
+      </div>
+    </article>
+
+    <article class="project book">
+      <div class="p-main">
+        <div class="p-top"><h3>Book Eater</h3><span class="status live">App Store 출시</span><span class="repo">book-eater</span></div>
+        <p class="lede">책을 다 읽을 때마다 강아지에게 밥을 주며 독서 습관을 만드는 반려 독서 다이어리입니다.</p>
+<div class="project-description">        <ul>
+          <li>알라딘 API로 책을 검색해 표지와 쪽수를 채우고, 0.5점 단위 별점과 한 줄 평, 서평을 남깁니다.</li>
+          <li>정해 둔 독서 주기(1~12주) 동안 책을 읽지 않으면 강아지가 배고파하다 잠들고, 소모성 인앱 결제로 깨울 수 있습니다.</li>
+          <li>Apple·Google 로그인과 초대 코드로 친구를 연결해 서로 읽은 책과 감상을 둘러봅니다. 한국어와 영어를 지원합니다.</li>
+        </ul></div>
+        <div class="meta">
+          <span class="chip">Flutter</span><span class="chip">Supabase</span><span class="chip">Sign in with Apple</span><span class="chip">In-App Purchase</span><span class="chip">알라딘 API</span>
+          <span class="period">2026.08 – 10</span>
+        </div>
+        <div class="links"><a href="https://apps.apple.com/kr/app/book-eater-reading-tracker/id6807840738" target="_blank" rel="noopener">App Store에서 보기</a><span class="private">비공개 저장소</span></div>
+      </div>
+      <div class="specimen" aria-hidden="true">
+        <div class="cap">먹이주기 · 포만감</div>
+        <div class="dog"><span class="dog-face">🐶</span><div style="flex:1; display:grid; gap:0.3rem"><span>오늘 책 한 권 먹었어요</span><div class="gauge"><b></b></div></div></div>
+        <div class="shelf-list">
+          <div><span>소년이 온다</span><span class="stars">★★★★★</span></div>
+          <div><span>도둑맞은 집중력</span><span class="stars">★★★★½</span></div>
+          <div><span>불편한 편의점</span><span class="stars">★★★½</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="project diary">
+      <div class="p-main">
+        <div class="p-top"><h3>Quarter Diary</h3><span class="status live">App Store 출시</span><span class="repo">quarter-diary</span></div>
+        <p class="lede">1년을 네 분기로 나눠 목표를 세우고, 친구와 진행 상황을 실시간으로 공유하는 목표 관리 앱입니다.</p>
+<div class="project-description">        <ul>
+          <li>분기마다 12주 주간 체크로 진행률을 자동 계산하고, 분기가 끝나면 회고를 남깁니다.</li>
+          <li>6자리 초대 코드로 친구를 추가하면 서로의 목표와 연속 달성 기록을 실시간으로 비교합니다.</li>
+          <li>Firestore 실시간 스트림과 로컬 캐시로 오프라인에서도 바로 반응합니다.</li>
+        </ul></div>
+        <div class="meta">
+          <span class="chip">Flutter</span><span class="chip">Firebase Auth</span><span class="chip">Cloud Firestore</span><span class="chip">Local Notifications</span>
+          <span class="period">2026.07 – 08</span>
+        </div>
+        <div class="links"><a href="https://apps.apple.com/kr/app/quarter-diary/id6790764953" target="_blank" rel="noopener">App Store에서 보기</a><span class="private">비공개 저장소</span></div>
+      </div>
+      <div class="specimen" aria-hidden="true">
+        <div class="cap">Q4 · 12주 체크</div>
+        <div class="goal"><span>📚 책 6권 읽기</span><span>58%</span></div>
+        <div class="weeks"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="goal"><span>🏃 주 3회 달리기</span><span>75%</span></div>
+        <div class="weeks"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
       </div>
     </article>
   </section>
 
   <section class="shelf" aria-labelledby="finance">
     <div class="shelf-head"><div><div class="eyebrow">02 / TOOLS FOR CURIOSITY</div><h2 id="finance">궁금한 건, 데이터로<span class="count">02</span></h2></div><span>Python · Node.js</span></div>
-
-    <article class="project etf">
-      <div class="p-main">
-        <div class="p-top"><h3>Leveraged ETF Simulator</h3><span class="status live">라이브 데모</span><span class="repo">leveraged-etf-simulator</span></div>
-        <p class="lede">2배·3배 레버리지 ETF가 오래 들고 있으면 왜 기초 자산 수익률의 2배·3배가 되지 않는지 백테스트로 보여 줍니다.</p>
-<div class="project-description">        <ul>
-          <li>매일 레버리지가 다시 맞춰지는 구조를 시뮬레이션해 변동성 손실(volatility drag)과 복리 효과를 비교합니다.</li>
-          <li>AMD 실제 가격 데이터로 백테스트한 Jupyter 노트북과, 누구나 써 볼 수 있는 Streamlit 앱을 함께 만들었습니다.</li>
-        </ul></div>
-        <div class="meta">
-          <span class="chip">Python</span><span class="chip">pandas · numpy</span><span class="chip">yfinance</span><span class="chip">Streamlit</span>
-          <span class="period">2026.02 – 10</span>
-        </div>
-        <div class="links"><a href="https://leveraged-etf-simulator.streamlit.app/" target="_blank" rel="noopener">데모 열기 (Streamlit)</a><a href="https://github.com/nekh802/leveraged-etf-simulator" target="_blank" rel="noopener">GitHub 저장소</a></div>
-      </div>
-      <div class="specimen" aria-hidden="true">
-        <div class="cap">같은 등락 반복 · 예시</div>
-        <svg viewBox="0 0 220 110" role="presentation">
-          <line x1="10" y1="40" x2="210" y2="40" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
-          <polyline fill="none" stroke="var(--muted)" stroke-width="1.5" points="10,40 30,32 50,41 70,33 90,42 110,34 130,43 150,35 170,44 190,36 210,45"/>
-          <polyline fill="none" stroke="var(--mark)" stroke-width="2" points="10,40 30,16 50,46 70,26 90,56 110,38 130,66 150,50 170,76 190,62 210,88"/>
-          <text x="10" y="104" fill="var(--muted)" font-size="9" font-family="IBM Plex Mono, monospace">시작가</text>
-          <text x="210" y="104" text-anchor="end" fill="var(--muted)" font-size="9" font-family="IBM Plex Mono, monospace">20일 뒤</text>
-        </svg>
-        <div class="legend"><span style="--c: var(--muted)">1배</span><span style="--c: var(--mark)">3배</span></div>
-      </div>
-    </article>
 
     <article class="project stock">
       <div class="p-main">
@@ -220,10 +193,62 @@
         </div>
       </div>
     </article>
+
+    <article class="project etf">
+      <div class="p-main">
+        <div class="p-top"><h3>Leveraged ETF Simulator</h3><span class="status live">라이브 데모</span><span class="repo">leveraged-etf-simulator</span></div>
+        <p class="lede">2배·3배 레버리지 ETF가 오래 들고 있으면 왜 기초 자산 수익률의 2배·3배가 되지 않는지 백테스트로 보여 줍니다.</p>
+<div class="project-description">        <ul>
+          <li>매일 레버리지가 다시 맞춰지는 구조를 시뮬레이션해 변동성 손실(volatility drag)과 복리 효과를 비교합니다.</li>
+          <li>AMD 실제 가격 데이터로 백테스트한 Jupyter 노트북과, 누구나 써 볼 수 있는 Streamlit 앱을 함께 만들었습니다.</li>
+        </ul></div>
+        <div class="meta">
+          <span class="chip">Python</span><span class="chip">pandas · numpy</span><span class="chip">yfinance</span><span class="chip">Streamlit</span>
+          <span class="period">2026.02 – 10</span>
+        </div>
+        <div class="links"><a href="https://leveraged-etf-simulator.streamlit.app/" target="_blank" rel="noopener">데모 열기 (Streamlit)</a><a href="https://github.com/nekh802/leveraged-etf-simulator" target="_blank" rel="noopener">GitHub 저장소</a></div>
+      </div>
+      <div class="specimen" aria-hidden="true">
+        <div class="cap">같은 등락 반복 · 예시</div>
+        <svg viewBox="0 0 220 110" role="presentation">
+          <line x1="10" y1="40" x2="210" y2="40" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+          <polyline fill="none" stroke="var(--muted)" stroke-width="1.5" points="10,40 30,32 50,41 70,33 90,42 110,34 130,43 150,35 170,44 190,36 210,45"/>
+          <polyline fill="none" stroke="var(--mark)" stroke-width="2" points="10,40 30,16 50,46 70,26 90,56 110,38 130,66 150,50 170,76 190,62 210,88"/>
+          <text x="10" y="104" fill="var(--muted)" font-size="9" font-family="IBM Plex Mono, monospace">시작가</text>
+          <text x="210" y="104" text-anchor="end" fill="var(--muted)" font-size="9" font-family="IBM Plex Mono, monospace">20일 뒤</text>
+        </svg>
+        <div class="legend"><span style="--c: var(--muted)">1배</span><span style="--c: var(--mark)">3배</span></div>
+      </div>
+    </article>
   </section>
 
   <section class="shelf" aria-labelledby="automation">
     <div class="shelf-head"><div><div class="eyebrow">03 / LESS REPETITION</div><h2 id="automation">반복은 도구화로<span class="count">02</span></h2></div><span>Python · Node.js · Claude Code</span></div>
+
+    <article class="project mailroom">
+      <div class="p-main">
+        <div class="p-top"><h3>Mailroom</h3><span class="status local">개인용 웹앱</span><span class="repo">mailroom</span></div>
+        <p class="lede">자연어로 Gmail을 정리하고, 중요한 메일은 보호 날짜로 지키는 개인용 정리 에이전트입니다.</p>
+        <div class="project-description"><ul>
+          <li>메일 내용은 AI에 보내지 않고 정리 요청만 해석해 조건에 맞는 메일을 찾습니다.</li>
+          <li>대상과 조건을 확인한 뒤 Gmail 휴지통으로 이동하며, 영구 삭제는 하지 않습니다.</li>
+          <li>보호 날짜를 실행 직전에도 재확인하고, 반복 정리는 후보를 준비한 뒤 직접 확인받습니다.</li>
+        </ul></div>
+        <div class="meta">
+          <span class="chip">Node.js</span><span class="chip">Vanilla JS</span><span class="chip">Gmail API</span><span class="chip">OpenAI</span><span class="chip">SQLite · AES-GCM</span>
+          <span class="period">2026.10</span>
+        </div>
+        <div class="links"><a href="https://mailroom-nekh802-demo-20261022.web.app/?demo=1" target="_blank" rel="noopener">데모 열기</a><a href="https://github.com/nekh802/mailroom" target="_blank" rel="noopener">GitHub 저장소</a></div>
+      </div>
+      <div class="specimen mailroom-specimen" aria-hidden="true">
+        <div class="cap">정리 후보 · 확인 대기</div>
+        <div class="shelf-list">
+          <div><span>읽은 프로모션</span><span class="mail-count">24개</span></div>
+          <div><span>보호 날짜</span><span class="mail-safe">2026.09.01 유지</span></div>
+          <div><span>실행 방식</span><span class="mail-safe">확인 후 휴지통</span></div>
+        </div>
+      </div>
+    </article>
 
     <article class="project blog">
       <div class="p-main">
@@ -248,30 +273,6 @@
           <li>미리보기 확인</li>
           <li>네이버 블로그 발행</li>
         </ol>
-      </div>
-    </article>
-    <article class="project mailroom">
-      <div class="p-main">
-        <div class="p-top"><h3>Mailroom</h3><span class="status local">개인용 웹앱</span><span class="repo">mailroom</span></div>
-        <p class="lede">자연어로 Gmail을 정리하고, 중요한 메일은 보호 날짜로 지키는 개인용 정리 에이전트입니다.</p>
-        <div class="project-description"><ul>
-          <li>메일 내용은 AI에 보내지 않고 정리 요청만 해석해 조건에 맞는 메일을 찾습니다.</li>
-          <li>대상과 조건을 확인한 뒤 Gmail 휴지통으로 이동하며, 영구 삭제는 하지 않습니다.</li>
-          <li>보호 날짜를 실행 직전에도 재확인하고, 반복 정리는 후보를 준비한 뒤 직접 확인받습니다.</li>
-        </ul></div>
-        <div class="meta">
-          <span class="chip">Node.js</span><span class="chip">Vanilla JS</span><span class="chip">Gmail API</span><span class="chip">OpenAI</span><span class="chip">SQLite · AES-GCM</span>
-          <span class="period">2026.10</span>
-        </div>
-        <div class="links"><a href="https://mailroom-nekh802-demo-20261022.web.app/?demo=1" target="_blank" rel="noopener">데모 열기</a><a href="https://github.com/nekh802/mailroom" target="_blank" rel="noopener">GitHub 저장소</a></div>
-      </div>
-      <div class="specimen mailroom-specimen" aria-hidden="true">
-        <div class="cap">정리 후보 · 확인 대기</div>
-        <div class="shelf-list">
-          <div><span>읽은 프로모션</span><span class="mail-count">24개</span></div>
-          <div><span>보호 날짜</span><span class="mail-safe">2026.09.01 유지</span></div>
-          <div><span>실행 방식</span><span class="mail-safe">확인 후 휴지통</span></div>
-        </div>
       </div>
     </article>
   </section>
