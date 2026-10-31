@@ -37,3 +37,8 @@
 .mailroom-specimen .shelf-list{background:#ffffffc9;border-color:#d5e1d8;box-shadow:none}
 .mailroom-specimen .shelf-list>div{display:flex;justify-content:space-between;gap:10px}
 .mailroom-specimen .mail-count,.mailroom-specimen .mail-safe{color:#3d765b;white-space:nowrap}
+.pokecard-specimen{background:#f6ece0;--line:#ead8c3;--ink:#5a4130;--muted:#8d735f;--accent:#c0603a}
+.pokecard-specimen .shelf-list{background:#ffffffc9;border-color:#ead8c3;box-shadow:none}
+.pokecard-specimen .shelf-list>div{display:flex;justify-content:space-between;gap:10px}
+.pokecard-specimen .card-grade{color:#c0603a;font-weight:600;white-space:nowrap}
+.pokecard-specimen .card-step{color:#3d765b;white-space:nowrap}
