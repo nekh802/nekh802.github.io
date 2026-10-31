@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>대신 블로거 데모 · Boyoung Kim</title>
+<meta name="description" content="맛집 사진과 장소를 주면 Claude Code가 사진을 보고 후기를 써서 블로그 발행까지 하는 도구를 예시 데이터로 체험해 보는 데모.">
+<style>
+:root{color-scheme:light;--bg:#faf9f6;--surface:#fff;--ink:#292632;--muted:#716d7b;--line:#e9e6e1;--accent:#7055b9;--green:#03a94d;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid #9271d7;outline-offset:2px;border-radius:6px}
+.wrap{max-width:1280px;margin:0 auto;padding:24px 24px 48px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:13px}
+.top a{text-decoration:none;color:var(--muted)}
+.top a:hover{color:var(--ink)}
+h1{font-size:30px;letter-spacing:-.02em;margin:28px 0 6px}
+.sub{margin:0;color:#333;font-size:14px;max-width:820px}
+.notice{margin:16px 0 22px;padding:10px 14px;border:1px solid #ead9b5;background:#fdf6e6;border-radius:10px;font-size:13px;color:#5d4a20}
+.grid{display:grid;grid-template-columns:minmax(320px,440px) 1fr;gap:18px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:13px;font-weight:600}
+.panel-head small{font-weight:400;color:var(--muted)}
+/* Claude Code terminal */
+.term{background:#1f1e1c;border-color:#1f1e1c;color:#e8e4dc}
+.term .panel-head{background:#2a2926;border-color:#3a3833;color:#f1ede5}
+.term .panel-head small{color:#a8a297}
+.lines{height:560px;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;font:12.5px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}
+.ln{white-space:pre-wrap;word-break:break-word}
+.ln.user{color:#fff;background:#34322e;border-radius:6px;padding:6px 10px}
+.ln.user::before{content:"> ";color:#a8a297}
+.ln.say::before{content:"⏺ ";color:#e8e4dc}
+.ln.tool::before{content:"⏺ ";color:#5fb36b}
+.ln.tool b{color:#fff}
+.ln.out{color:#a8a297;padding-left:18px}
+.ln.out span{display:block}
+.ln.out span:first-child::before{content:"⎿  ";margin-left:-18px}
+.ln.warn{color:#e6b450}
+.choices{display:flex;flex-wrap:wrap;gap:6px;padding-left:18px}
+.choices button{border:1px solid #57534b;background:#2a2926;color:#f1ede5;border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer}
+.choices button:hover{border-color:#d9a36a;color:#ffd7a8}
+.choices button:disabled{opacity:.45;cursor:default}
+.compose{border-top:1px solid #3a3833;padding:12px 14px;display:grid;gap:10px}
+.quick{display:flex;flex-wrap:wrap;gap:6px}
+.quick button{border:1px solid #4a4741;background:#2a2926;color:#ddd8cf;border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer}
+.quick button:hover{border-color:#d9a36a;color:#ffd7a8}
+.quick .label{font-size:12px;color:#a8a297;align-self:center;margin-right:2px}
+form{display:flex;gap:8px}
+form input{flex:1;min-width:0;border:1px solid #4a4741;border-radius:8px;padding:8px 10px;font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;background:#151413;color:#f1ede5}
+form button{border:0;background:#d9773f;color:#fff;border-radius:8px;padding:0 14px;font-weight:600;cursor:pointer}
+form button:disabled{background:#6b5546;cursor:default}
+/* Blog */
+.blog .panel-head{background:#f3faf5;border-color:#d6eadb}
+.blog .panel-head .file{display:flex;align-items:center;gap:8px}
+.blog .panel-head .file i{width:16px;height:16px;border-radius:4px;background:var(--green);display:inline-block}
+.reset{border:1px solid #cfe0d4;background:#fff;border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer}
+.folder{display:flex;gap:6px;padding:10px 16px;border-bottom:1px solid var(--line);overflow-x:auto;background:#fbfbfa;min-height:74px;align-items:center}
+.folder .empty{font-size:12px;color:var(--muted)}
+.thumb{position:relative;flex:0 0 auto;width:72px;height:54px;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.thumb svg{display:block;width:100%;height:100%}
+.thumb em{position:absolute;left:3px;top:2px;font-style:normal;font-size:10px;font-weight:700;color:#fff;background:rgba(0,0,0,.55);border-radius:3px;padding:0 4px}
+.thumb.seen{outline:2px solid var(--green);outline-offset:-2px}
+.paper-wrap{position:relative;max-height:620px;overflow-y:auto}
+.paper{max-width:640px;margin:0 auto;padding:22px 22px 30px}
+.paper .ph{font-size:13px;color:var(--muted);text-align:center;padding:60px 10px}
+.paper h2{font-size:22px;line-height:1.4;letter-spacing:-.01em;margin:0 0 16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.paper p{margin:0 0 14px;font-size:15px;white-space:pre-line}
+.paper figure{margin:0 0 16px;text-align:center}
+.paper figure .media{position:relative;border-radius:4px;overflow:hidden;max-width:440px;margin:0 auto}
+.paper figure svg{display:block;width:100%;height:auto}
+.paper figcaption{font-size:12.5px;color:#888;margin-top:6px}
+.paper .first::after{content:"대표 이미지";position:absolute;right:8px;top:8px;font-size:11px;background:var(--green);color:#fff;border-radius:4px;padding:1px 7px}
+.paper .map{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13px;margin:6px 0 14px}
+.paper .map i{width:34px;height:34px;border-radius:6px;background:repeating-linear-gradient(45deg,#e4efe7 0 6px,#d3e6d8 6px 12px);display:grid;place-items:center;font-style:normal}
+.paper .map small{display:block;color:var(--muted);font-size:11.5px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-size:12.5px;color:#2e7d4f;background:#eef7f1;border-radius:999px;padding:1px 9px}
+.blk{animation:rise .35s ease-out}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.banner{position:sticky;top:0;z-index:2;font-size:12.5px;padding:8px 16px;border-bottom:1px solid var(--line);display:none}
+.banner.confirm{display:block;background:#fff6e0;color:#6b4f12;border-color:#f0dfb0}
+.banner.done{display:block;background:#e9f7ee;color:#1f6b3f;border-color:#cbe8d5}
+.banner.cancel{display:block;background:#f4f2f6;color:#5c5866}
+.paper-wrap.shot .paper{filter:saturate(.9);box-shadow:inset 0 0 0 3px #f0dfb0}
+.how{margin-top:26px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;counter-reset:s}
+.how div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:13px;color:#333}
+.how div::before{counter-increment:s;content:"0" counter(s);display:block;font-size:11px;letter-spacing:.08em;color:var(--green);font-weight:700;margin-bottom:4px}
+.how strong{display:block;color:var(--ink);font-size:14px;margin-bottom:2px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}.lines{height:440px}.how{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.wrap{padding:18px 14px 40px}h1{font-size:25px}.how{grid-template-columns:1fr}.paper{padding:18px 14px 24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a href="../#automation">← 포트폴리오로 돌아가기</a><a href="https://github.com/nekh802" target="_blank" rel="noopener">GitHub ↗</a></div>
+  <h1>대신 블로거 데모</h1>
+  <p class="sub">Claude Code에 <b>/blog-review 성수동 숯결갈비, 웨이팅 30분 / 갈빗살 강추</b>처럼 장소와 메모를 보내면, 사진을 정리하고 사진을 직접 보며 후기를 쓴 뒤, 확인을 받고 네이버 블로그에 발행합니다.</p>
+  <div class="notice">이 페이지는 브라우저 안에서만 동작하는 체험판입니다. 가게와 사진은 입력한 장소로 만들어 낸 가상의 예시이며, 실제 Claude Code·네이버 블로그에는 연결되지 않고 아무것도 발행되지 않습니다. 실제 도구는 Claude가 사진을 보고 매번 새로 쓰지만, 데모는 미리 준비한 문장으로 흐름만 보여 줍니다.</div>
+
+  <div class="grid">
+    <section class="panel term" aria-label="Claude Code 대화">
+      <div class="panel-head"><span>~/dev/대신 블로거</span><small>Claude Code</small></div>
+      <div class="lines" id="lines" aria-live="polite"></div>
+      <div class="compose">
+        <div class="quick" id="quick"><span class="label">눌러서 입력</span></div>
+        <form id="form">
+          <input id="input" autocomplete="off" aria-label="Claude Code 입력">
+          <button id="send" type="submit">보내기</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="panel blog" aria-label="블로그 글 미리보기">
+      <div class="panel-head"><span class="file"><i></i><span id="folderName">output/</span></span><button class="reset" id="reset" type="button">처음 상태로</button></div>
+      <div class="folder" id="folder"><span class="empty">사진을 정리하면 여기에 01.jpg, 02.jpg … 순서로 놓입니다.</span></div>
+      <div class="paper-wrap" id="paperWrap">
+        <div class="banner" id="banner"></div>
+        <article class="paper" id="paper"><div class="ph">후기를 쓰면 여기에 preview.html이 그려집니다.</div></article>
+      </div>
+    </section>
+  </div>
+
+  <div class="how">
+    <div><strong>사진 정리</strong>폴더·iCloud·휴대폰(QR)에서 받은 사진을 찍은 순서대로 01.jpg…로 바꾸고, HEIC 변환과 600px 축소를 합니다. 동영상은 회전 보정과 얼굴 모자이크를 거칩니다.</div>
+    <div><strong>사진 보고 쓰기</strong>Claude Code가 사진을 모두 열어 보고, 보이는 것과 메모만으로 후기를 씁니다. 가격·영업시간처럼 확인되지 않는 내용은 지어내지 않습니다.</div>
+    <div><strong>미리보기 확인</strong>첫 사진은 썸네일이 되도록 음식 사진으로 두고, 미리보기를 보여 준 뒤 수정 요청을 반영합니다.</div>
+    <div><strong>확인 후 발행</strong>Playwright로 에디터에 사진·지도·태그를 넣고, 발행 직전 화면을 캡처해 승인받은 뒤에만 발행합니다.</div>
+  </div>
+</div>
+
+<script>
+// Mirrors .claude/skills/blog-review/SKILL.md: prepare → read photos → write review.json → preview → publish --confirm.
+const $ = (id) => document.getElementById(id);
+const lines = $("lines"), form = $("form"), input = $("input"), send = $("send");
+const folder = $("folder"), paper = $("paper"), paperWrap = $("paperWrap"), banner = $("banner");
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+function el(tag, cls, text) { const n = document.createElement(tag); if (cls) n.className = cls; if (text !== undefined) n.textContent = text; return n; }
+const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+
+// ---- Illustrated stand-ins for photos (viewBox 300x225).
+const svg = (body, bg = "#6b5848") => `<svg viewBox="0 0 300 225" role="img" aria-hidden="true"><rect width="300" height="225" fill="${bg}"/>${body}</svg>`;
+const ART = {
+  sign: (n) => svg(`<g stroke="#b9ad9f" stroke-width="2">${[40, 80, 120, 160, 200].map((y) => `<line x1="0" y1="${y}" x2="300" y2="${y}"/>`).join("")}</g>
+    <rect x="35" y="34" width="230" height="64" rx="6" fill="#2d2a26"/><text x="150" y="75" fill="#f5e7c8" font-size="${n.length > 7 ? 20 : 26}" font-weight="700" text-anchor="middle" font-family="sans-serif">${esc(n)}</text>
+    <rect x="112" y="122" width="76" height="103" fill="#4d3b2c"/><rect x="120" y="130" width="60" height="70" fill="#9fc3d6" opacity=".8"/><circle cx="174" cy="178" r="3" fill="#e8d18a"/>`, "#d8cfc4"),
+  interior: () => svg(`<rect x="20" y="20" width="110" height="80" fill="#cfe4ee"/><rect x="170" y="20" width="110" height="80" fill="#cfe4ee"/>
+    <line x1="75" y1="20" x2="75" y2="100" stroke="#e9e1d6" stroke-width="4"/><line x1="225" y1="20" x2="225" y2="100" stroke="#e9e1d6" stroke-width="4"/>
+    <rect x="0" y="150" width="300" height="75" fill="#a98a6c"/>${[40, 160].map((x) => `<rect x="${x}" y="125" width="100" height="14" rx="3" fill="#6e5038"/><rect x="${x + 10}" y="139" width="8" height="45" fill="#5b412c"/><rect x="${x + 82}" y="139" width="8" height="45" fill="#5b412c"/>`).join("")}
+    <circle cx="150" cy="10" r="10" fill="#f6d27a"/>`, "#efe6da"),
+  grill: () => svg(`<circle cx="150" cy="112" r="96" fill="#2b2b2b"/><circle cx="150" cy="112" r="86" fill="#d9542b" opacity=".5"/>
+    <g stroke="#555" stroke-width="3">${[-60, -36, -12, 12, 36, 60].map((d) => `<line x1="${150 + d}" y1="30" x2="${150 + d}" y2="194"/>`).join("")}</g>
+    ${[[95, 80, -12], [160, 70, 8], [115, 130, 14], [180, 125, -6]].map(([x, y, r]) => `<g transform="rotate(${r} ${x + 25} ${y + 15})"><rect x="${x}" y="${y}" width="56" height="32" rx="9" fill="#8a3b22"/><path d="M${x + 12} ${y + 6}v20M${x + 28} ${y + 6}v20M${x + 44} ${y + 6}v20" stroke="#4a1d10" stroke-width="3"/></g>`).join("")}`, "#3d3631"),
+  bowl: (broth, tops) => svg(`<circle cx="150" cy="112" r="98" fill="#f4f1ea"/><circle cx="150" cy="112" r="80" fill="${broth}"/>
+    ${tops.map(([x, y, rx, ry, c]) => `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${c}"/>`).join("")}`),
+  side: () => svg(`${[[70, 65, "#c8402c"], [150, 60, "#6d9a3c"], [230, 68, "#e2b64a"], [100, 155, "#9b6a3c"], [200, 158, "#b9d38a"]].map(([x, y, c]) => `<circle cx="${x}" cy="${y}" r="42" fill="#f6f3ee"/><circle cx="${x}" cy="${y}" r="30" fill="${c}"/>`).join("")}`),
+  tray: () => svg(`<rect x="20" y="22" width="260" height="181" rx="10" fill="#b8915f"/>
+    <circle cx="95" cy="140" r="44" fill="#f6f3ee"/><circle cx="95" cy="140" r="34" fill="#fbfaf5"/><circle cx="200" cy="140" r="46" fill="#3a3632"/><circle cx="200" cy="140" r="36" fill="#a8652e"/>
+    ${[[65, 60, "#c8402c"], [125, 58, "#6d9a3c"], [185, 60, "#e2b64a"], [240, 62, "#8a5a3a"]].map(([x, y, c]) => `<circle cx="${x}" cy="${y}" r="22" fill="#f6f3ee"/><circle cx="${x}" cy="${y}" r="15" fill="${c}"/>`).join("")}`),
+  dumpling: () => svg(`<circle cx="150" cy="112" r="96" fill="#f6f3ee"/>${[[110, 80], [170, 78], [95, 135], [150, 130], [205, 132]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="32" ry="22" fill="#f1e2c4"/><path d="M${x - 24} ${y - 4}q24 -18 48 0" stroke="#d8c39b" stroke-width="3" fill="none"/>`).join("")}`),
+  cake: () => svg(`<circle cx="150" cy="118" r="94" fill="#f6f3ee"/><polygon points="85,160 215,160 190,70" fill="#f0d39a"/><polygon points="190,70 215,160 222,152 198,64" fill="#8a4a1d"/>
+    <path d="M85 160 Q140 140 190 70" stroke="#a75a22" stroke-width="10" fill="none" opacity=".7"/><circle cx="105" cy="80" r="10" fill="#e9e1d4"/>`, "#cdb79c"),
+  cup: () => svg(`<circle cx="150" cy="112" r="92" fill="#ece6dc"/><circle cx="150" cy="112" r="66" fill="#fff"/><circle cx="150" cy="112" r="54" fill="#b98a5c"/>
+    <path d="M150 140c-30-20-34-44-16-50c8-3 14 2 16 8c2-6 8-11 16-8c18 6 14 30-16 50z" fill="#f7efe3"/><rect x="214" y="102" width="34" height="18" rx="9" fill="#fff"/>`, "#cdb79c"),
+  street: () => svg(`<rect x="0" y="0" width="300" height="120" fill="#bcd9ea"/><rect x="0" y="120" width="300" height="105" fill="#9a9a95"/>
+    ${[[70, 108], [150, 100], [228, 112]].map(([x, y]) => `<rect x="${x - 16}" y="${y + 18}" width="32" height="70" rx="10" fill="#5c6b84"/><g>${[0, 1, 2, 3].map((i) => `<rect x="${x - 14 + (i % 2) * 14}" y="${y - 14 + Math.floor(i / 2) * 14}" width="14" height="14" fill="${["#d9b79c", "#c9a58a", "#e2c3a8", "#bf9a80"][i]}"/>`).join("")}</g>`).join("")}
+    <rect x="0" y="0" width="300" height="225" fill="#000" opacity=".15"/><circle cx="150" cy="112" r="26" fill="rgba(0,0,0,.55)"/><polygon points="142,98 142,126 166,112" fill="#fff"/>
+    <rect x="248" y="196" width="40" height="18" rx="4" fill="rgba(0,0,0,.6)"/><text x="268" y="209" fill="#fff" font-size="11" text-anchor="middle" font-family="sans-serif">0:12</text>`, "#bcd9ea")
+};
+
+// ---- Scenarios. Photos are in shot order (01 = first taken); `order` is how Claude places them in the post.
+const PRESETS = {
+  galbi: {
+    keys: ["갈비", "고기", "삼겹", "구이", "숯불", "숯"], menu: "갈빗살", kind: "고깃집",
+    photos: [["sign", "가게 입구 간판"], ["interior", "넓은 테이블이 놓인 실내"], ["grill", "숯불 위에서 노릇하게 익어 가는 갈빗살"], ["side", "쌈채소와 함께 깔리는 기본 찬"], ["bowl", "식사로 곁들인 된장찌개", "#9a6a35", [[120, 95, 22, 14, "#e9e2c9"], [175, 120, 18, 12, "#6d9a3c"], [140, 140, 16, 10, "#c8402c"]]]],
+    body: (a) => [
+      ["t", `${a.where}'${a.name}'에 다녀왔어요. 테이블마다 숯불을 올려 갈빗살을 직접 구워 먹는 고깃집이에요.`],
+      ["p", 3], ["t", "숯불 위에 갈빗살을 올리면 금방 겉이 노릇하게 익어요. 석쇠 자국이 선명하게 남은 모습이 사진으로도 보이죠?"],
+      ["p", 4], ["t", "쌈채소와 기본 찬이 넉넉하게 깔려 나와서 고기랑 번갈아 먹기 좋았어요."],
+      ["p", 5], ["t", "마무리로는 된장찌개를 곁들였어요. 고기 먹고 나서 한 숟갈 뜨니 깔끔하게 정리되는 느낌이더라고요."],
+      ["p", 2], ["t", "실내는 테이블 간격이 넓은 편이라 여럿이 가도 편하게 먹을 수 있어 보였어요."],
+      ["p", 1], ["memo"], ["t", `${a.area || "근처"}에서 고기 생각날 때 다시 찾고 싶은 곳이에요!`]],
+    tags: ["갈비맛집", "고깃집", "숯불갈비", "갈빗살", "고기맛집", "회식장소", "저녁메뉴", "고기집추천"]
+  },
+  noodle: {
+    keys: ["칼국수", "국수", "수제비", "면", "우동", "냉면"], menu: "바지락칼국수", kind: "칼국수집",
+    photos: [["sign", "골목 안쪽에 있는 가게 간판"], ["interior", "창이 크게 난 아담한 실내"], ["bowl", "바지락이 듬뿍 들어간 칼국수", "#e6d8b0", [[115, 90, 16, 11, "#6b5c4a"], [175, 85, 16, 11, "#6b5c4a"], [150, 140, 16, 11, "#6b5c4a"], [120, 130, 26, 6, "#f3ead2"], [180, 130, 26, 6, "#f3ead2"], [150, 105, 10, 6, "#6d9a3c"]]], ["side", "같이 나오는 겉절이와 반찬"], ["dumpling", "곁들여 시킨 손만두"]],
+    body: (a) => [
+      ["t", `${a.where}'${a.name}'에서 따끈한 칼국수 한 그릇 먹고 왔어요.`],
+      ["p", 3], ["t", "큼직한 그릇에 국물이 넉넉하게 담겨 나오고, 바지락이 면 위로 수북하게 올라가 있어요. 면발도 굵직해서 먹는 재미가 있더라고요."],
+      ["p", 4], ["t", "같이 나오는 겉절이가 칼국수랑 잘 어울려서 리필해 먹었어요."],
+      ["p", 5], ["t", "손만두도 하나 시켰는데, 접시에 다섯 개가 가지런히 담겨 나왔어요."],
+      ["p", 2], ["p", 1], ["memo"], ["t", "뜨끈한 국물이 생각나는 날 또 가려고요!"]],
+    tags: ["칼국수맛집", "바지락칼국수", "칼국수", "손만두", "점심메뉴", "국수맛집", "혼밥", "비오는날"]
+  },
+  cafe: {
+    keys: ["카페", "커피", "디저트", "베이커리", "케이크", "빵"], menu: "바스크 치즈케이크", kind: "카페",
+    photos: [["sign", "가게 앞 간판"], ["cake", "겉면이 진하게 구워진 바스크 치즈케이크"], ["cup", "하트 라테아트가 올라간 라테"], ["interior", "햇빛이 잘 드는 창가 자리"]],
+    video: ["street", "창가 자리에서 본 바깥 풍경"],
+    body: (a) => [
+      ["t", `${a.where}'${a.name}'에서 쉬어 가는 시간을 보냈어요.`],
+      ["p", 2], ["t", "바스크 치즈케이크는 겉면이 진한 갈색으로 구워져 있고, 단면은 꾸덕한 크림색이에요."],
+      ["p", 3], ["t", "라테 위에는 하트 라테아트가 예쁘게 올라가 있었어요."],
+      ["p", 4], ["t", "창이 커서 오후에는 햇빛이 테이블까지 들어와요."],
+      ["v", 1], ["p", 1], ["memo"], ["t", "조용히 앉아 쉬고 싶을 때 다시 올 것 같아요."]],
+    tags: ["카페추천", "디저트카페", "바스크치즈케이크", "라테아트", "감성카페", "카페투어", "창가자리", "디저트맛집"]
+  },
+  hansik: {
+    keys: [], menu: "정식", kind: "밥집",
+    photos: [["sign", "가게 입구 간판"], ["interior", "깔끔하게 정돈된 실내"], ["tray", "밥과 국, 반찬이 한 쟁반에 나오는 정식"], ["side", "종지마다 담긴 반찬"]],
+    body: (a) => [
+      ["t", `${a.where}'${a.name}'에서 든든하게 한 끼 먹고 왔어요.`],
+      ["p", 3], ["t", "정식을 시키면 밥과 국, 반찬이 한 쟁반에 가지런히 담겨 나와요."],
+      ["p", 4], ["t", "반찬은 종지마다 조금씩 담겨 있어서 골고루 집어 먹기 좋았어요."],
+      ["p", 2], ["p", 1], ["memo"], ["t", "근처에서 밥집 찾을 때 다시 들르고 싶어요."]],
+    tags: ["밥집추천", "한식맛집", "정식", "점심메뉴", "백반", "한식", "혼밥", "직장인점심"]
+  }
+};
+function pickPreset(text) {
+  for (const [id, p] of Object.entries(PRESETS)) if (p.keys.some((k) => text.includes(k))) return id;
+  return "hansik";
+}
+
+// ---- Command parsing (mirrors the skill's inputs: 장소 필수, 사진·메모 선택).
+function parse(text) {
+  const m = text.trim().match(/^\/blog-review(?:\s+([\s\S]*))?$/);
+  if (!m) return { error: "notcmd" };
+  const segs = (m[1] || "").split(/[,，]/).map((s) => s.trim()).filter(Boolean);
+  if (!segs.length) return { error: "noplace" };
+  const place = segs.shift().slice(0, 40);
+  let source = "picker", path = "";
+  const memo = [];
+  for (const s of segs) {
+    if (/^사진은?\s*(.*)$/.test(s) && !/폰|핸드폰|휴대폰|아이클라우드|icloud/i.test(s)) { source = "folder"; path = s.replace(/^사진은?\s*/, "").replace(/에\s*있어.*$/, ""); }
+    else if (/폰|핸드폰|휴대폰/.test(s) && /사진/.test(s)) source = "phone";
+    else if (/icloud|아이클라우드/i.test(s)) source = "icloud";
+    else memo.push(...s.split("/").map((x) => x.trim()).filter(Boolean));
+  }
+  const words = place.split(/\s+/);
+  const area = words.length > 1 ? words[0] : "";
+  const name = words.length > 1 ? words.slice(1).join(" ") : place;
+  return { place, area, name, where: area ? `${area}에 있는 ` : "", source, path, memo, preset: pickPreset(place + " " + memo.join(" ")) };
+}
+
+// ---- Terminal output.
+function line(cls, text) { const n = el("div", "ln " + cls); if (text !== undefined) n.textContent = text; lines.append(n); lines.scrollTop = lines.scrollHeight; return n; }
+function tool(name, arg) { const n = line("tool"); n.append(el("b", "", name), `(${arg})`); return n; }
+function out(...rows) { const n = line("out"); for (const r of rows) n.append(el("span", "", r)); return n; }
+function choose(options) {
+  return new Promise((resolve) => {
+    const box = el("div", "choices");
+    for (const [label, value] of options) {
+      const b = el("button", "", label);
+      b.type = "button";
+      b.addEventListener("click", () => { box.querySelectorAll("button").forEach((x) => (x.disabled = true)); line("user", label); resolve(value); });
+      box.append(b);
+    }
+    lines.append(box);
+    lines.scrollTop = lines.scrollHeight;
+  });
+}
+
+// ---- Blog panel.
+function art(photo, name) { const [kind, , ...rest] = photo; return kind === "sign" ? ART.sign(name) : ART[kind](...rest); }
+function showFolder(a, p) {
+  folder.replaceChildren();
+  p.photos.forEach((ph, i) => { const t = el("div", "thumb"); t.innerHTML = art(ph, a.name); t.append(el("em", "", String(i + 1).padStart(2, "0"))); folder.append(t); });
+  if (p.video) { const t = el("div", "thumb"); t.innerHTML = ART[p.video[0]](); t.append(el("em", "", "v01")); folder.append(t); }
+}
+function setBanner(kind, text) { banner.className = "banner " + kind; banner.textContent = text; paperWrap.classList.toggle("shot", kind === "confirm"); }
+function clearBanner() { banner.className = "banner"; paperWrap.classList.remove("shot"); }
+
+function blocksFor(a, p) {
+  const blocks = [];
+  for (const b of p.body(a)) {
+    if (b[0] === "t") blocks.push({ type: "text", text: b[1] });
+    else if (b[0] === "p") blocks.push({ type: "photo", index: b[1], caption: p.photos[b[1] - 1][1] });
+    else if (b[0] === "v") blocks.push({ type: "video", index: b[1], caption: p.video[1] });
+    else if (b[0] === "memo" && a.memo.length) blocks.push({ type: "text", text: "기억해 둔 포인트도 정리해 둘게요.\n" + a.memo.map((m) => "✔ " + m).join("\n") });
+  }
+  return blocks;
+}
+function tagsFor(a, p) {
+  const nm = a.name.replace(/\s+/g, "");
+  const list = [a.area && a.area + "맛집", nm, a.area && a.area + nm, a.area && a.area + p.kind, a.area && a.area + p.menu.replace(/\s+/g, ""), p.menu.replace(/\s+/g, ""), ...p.tags, a.area && a.area + "데이트", a.area && a.area + "가볼만한곳"];
+  return [...new Set(list.filter(Boolean))].slice(0, 18);
+}
+function renderPaper(review, a, p) {
+  paper.replaceChildren();
+  const blks = [el("h2", "", review.title)];
+  let firstPhoto = true;
+  for (const b of review.blocks) {
+    if (b.type === "text") { blks.push(el("p", "", b.text)); continue; }
+    const fig = el("figure"), media = el("div", "media");
+    media.innerHTML = b.type === "photo" ? art(p.photos[b.index - 1], a.name) : ART[p.video[0]]();
+    if (b.type === "photo" && firstPhoto) { media.classList.add("first"); firstPhoto = false; }
+    fig.append(media, el("figcaption", "", b.caption));
+    blks.push(fig);
+  }
+  const map = el("div", "map"), pin = el("i", "", "📍"), txt = el("div");
+  txt.append(el("b", "", a.place), el("small", "", "발행할 때 에디터의 '장소' 버튼으로 지도 삽입"));
+  map.append(pin, txt);
+  const tags = el("div", "tags");
+  for (const t of review.tags) tags.append(el("span", "", "#" + t));
+  blks.push(map, tags);
+  return blks;
+}
+async function drawPaper(review, a, p, animate) {
+  const blks = renderPaper(review, a, p);
+  for (const b of blks) { if (animate) { b.classList.add("blk"); paper.append(b); paperWrap.scrollTop = paperWrap.scrollHeight; await wait(260); } else paper.append(b); }
+  if (!animate) paperWrap.scrollTop = 0;
+}
+
+let busy = false;
+function stamp() { const d = new Date(), z = (n) => String(n).padStart(2, "0"); return `${d.getFullYear()}${z(d.getMonth() + 1)}${z(d.getDate())}_${z(d.getHours())}${z(d.getMinutes())}${z(d.getSeconds())}`; }
+
+async function handle(text) {
+  busy = true; send.disabled = true;
+  line("user", text);
+  await wait(400);
+  const a = parse(text);
+  if (a.error === "notcmd") { line("say", "(데모) 이 데모는 /blog-review 명령만 처리해요. 예) /blog-review 성수동 숯결갈비, 웨이팅 30분 / 갈빗살 강추"); return done(); }
+  if (a.error === "noplace") { line("say", "어느 가게 후기를 쓸까요? 장소를 알려 주세요.\n예) /blog-review 성수동 숯결갈비, 사진은 ~/Desktop/갈비, 웨이팅 30분 / 갈빗살 강추"); return done(); }
+
+  const p = PRESETS[a.preset];
+  const dir = "output/" + stamp();
+  const photoArg = a.source === "folder" ? ` --photos "${a.path}"` : a.source === "phone" ? " --phone" : a.source === "icloud" ? " --icloud" : "";
+  const memoArg = a.memo.length ? ` --memo "${a.memo.join(" / ")}"` : "";
+
+  // 1. 사진 정리
+  line("say", a.source === "picker" ? "사진 경로가 없어서 파일 선택 창을 열게요. 선택 창에서 사진을 골라 주세요." : a.source === "phone" ? "맥 화면에 뜬 QR 코드를 휴대폰 카메라로 찍으세요(같은 Wi‑Fi). 사진을 고르고 '맥으로 보내기'를 누르면 됩니다." : "사진을 정리할게요.");
+  await wait(500);
+  tool("Bash", `.venv/bin/python blogger.py prepare --place "${a.place}"${photoArg}${memoArg}`);
+  await wait(900);
+  const n = p.photos.length;
+  const rows = [
+    a.source === "picker" ? `iCloud Drive 선택 창 → ${n + (p.video ? 1 : 0)}개 선택` : a.source === "phone" ? `http://192.168.0.12:8765 대기 중 → 휴대폰에서 ${n + (p.video ? 1 : 0)}개 받음` : a.source === "icloud" ? `iCloud Drive > 블로그 사진 → ${n + (p.video ? 1 : 0)}개 가져오고 폴더 비움` : `${a.path} → ${n + (p.video ? 1 : 0)}개`,
+    `HEIC ${n}장 → JPG 변환, 가로 600px 축소 → 01.jpg ~ ${String(n).padStart(2, "0")}.jpg`
+  ];
+  if (p.video) rows.push("동영상 1개: 회전 보정 · 1280px · 30fps · 얼굴 3곳 모자이크 → v01.mp4");
+  rows.push(dir);
+  out(...rows);
+  $("folderName").textContent = dir + "/";
+  showFolder(a, p);
+  await wait(700);
+
+  // 2. 사진 보기
+  const thumbs = [...folder.querySelectorAll(".thumb")];
+  tool("Read", `01.jpg ~ ${String(n).padStart(2, "0")}.jpg${p.video ? ", v01-1.jpg ~ v01-3.jpg" : ""}`);
+  for (const t of thumbs) { t.classList.add("seen"); await wait(220); }
+  out(`사진 ${n}장${p.video ? " · 동영상 장면 캡처 3장" : ""} 확인`);
+  await wait(400);
+
+  // 3. 후기 작성
+  const firstFood = p.body(a).find((b) => b[0] === "p")[1];
+  const notes = [`사진을 다 봤어요. 01은 간판 사진이라, 썸네일이 되도록 음식 사진 ${String(firstFood).padStart(2, "0")}을 맨 앞에 둘게요.`];
+  notes.push(a.memo.length ? "가격·영업시간은 메모에 적어 주신 것만 쓰고, 사진에 없는 내용은 지어내지 않을게요." : "메모가 없어서 가격·영업시간은 쓰지 않고, 사진에 보이는 것만으로 쓸게요.");
+  line("say", notes.join("\n"));
+  await wait(600);
+  const review = { title: `${a.area ? a.area + " " : ""}${a.name} | ${p.menu} 맛있게 먹은 ${p.kind} 후기`, blocks: blocksFor(a, p), tags: tagsFor(a, p) };
+  tool("Write", `${dir}/review.json`);
+  out(`title · 블록 ${review.blocks.length}개 · 태그 ${review.tags.length}개`);
+  clearBanner();
+  await drawPaper(review, a, p, true);
+
+  // 4. 미리보기 & 확인
+  tool("Bash", `.venv/bin/python blogger.py preview ${dir}`);
+  out(`${dir}/preview.html`);
+  await wait(300);
+  for (;;) {
+    line("say", `미리보기를 만들었어요.\n제목: ${review.title}\n사진 ${n}장${p.video ? " · 동영상 1개" : ""} · 태그 ${review.tags.length}개. 발행해도 될까요?`);
+    const pick = await choose([["발행해 줘", "go"], ["제목 더 짧게", "short"], ["그만두기", "stop"]]);
+    if (pick === "stop") { line("say", "알겠어요. review.json은 남겨 둘게요. 나중에 이어서 발행할 수 있어요."); return done(); }
+    if (pick === "go") break;
+    review.title = `${a.place} ${p.menu} 후기`;
+    tool("Edit", `${dir}/review.json`);
+    out(`title → ${review.title}`);
+    paper.querySelector("h2").textContent = review.title;
+    paperWrap.scrollTop = 0;
+    tool("Bash", `.venv/bin/python blogger.py preview ${dir}`);
+    out(`${dir}/preview.html`);
+    await wait(300);
+  }
+
+  // 5. 발행 (발행 직전 캡처 → 승인)
+  tool("Bash", `.venv/bin/python blogger.py publish ${dir} --confirm`);
+  await wait(700);
+  const pubRows = [`에디터 열기 · 제목 입력`, `사진 ${n}장 업로드 · AI 활용 설정 끔: ${n}/${n}장`];
+  if (p.video) pubRows.push("동영상 1개 업로드 · 대표 이미지 추출 대기");
+  pubRows.push(`장소 '${a.place}' 지도 삽입`, `태그 ${review.tags.length}개 입력`, "CONFIRM_WAIT → confirm.png");
+  const o = out(pubRows[0]);
+  for (const r of pubRows.slice(1)) { await wait(450); o.append(el("span", "", r)); lines.scrollTop = lines.scrollHeight; }
+  setBanner("confirm", "confirm.png — 발행 버튼을 누르기 직전의 에디터 화면");
+  paperWrap.scrollTop = 0;
+  tool("Read", `${dir}/confirm.png`);
+  await wait(500);
+  line("say", `발행 직전 화면을 확인했어요. 사진 ${n}장${p.video ? ", 동영상 1개" : ""}, 지도, 태그 ${review.tags.length}개가 모두 들어갔어요. 발행할까요?`);
+  const ok = await choose([["발행", "go"], ["취소", "cancel"]]);
+  tool("Bash", `touch ${dir}/.${ok}`);
+  await wait(700);
+  if (ok === "go") {
+    out("발행 완료 → blog.example/demo/2240117 (데모라 실제로 발행되지 않았어요)");
+    setBanner("done", "발행 완료 (데모) — 실제 블로그에는 아무것도 올라가지 않았어요.");
+    line("say", "발행했어요! 다른 가게 후기도 /blog-review 로 보내 주세요.");
+  } else {
+    out("발행 취소 · 브라우저 닫음");
+    setBanner("cancel", "발행을 취소했어요. review.json은 그대로 남아 있습니다.");
+    line("say", "발행을 취소했어요. 고칠 부분을 알려 주시면 반영해서 다시 미리보기를 만들게요.");
+  }
+  done();
+}
+function done() { busy = false; send.disabled = false; input.focus({ preventScroll: true }); }
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const text = input.value.trim();
+  if (!text || busy) return;
+  input.value = "";
+  handle(text);
+});
+const EXAMPLES = [
+  ["갈빗집", "/blog-review 성수동 숯결갈비, 사진은 ~/Desktop/갈비, 웨이팅 30분 / 갈빗살 강추 / 2인 6만원"],
+  ["칼국수", "/blog-review 망원동 소담칼국수, 사진은 폰에 있어, 비 오는 날 추천 / 겉절이 리필 가능"],
+  ["카페 + 동영상", "/blog-review 연남동 오후담 카페, 사진은 iCloud에 올렸어, 창가 자리 좋음"],
+  ["메모 없이", "/blog-review 을지로 한끼식당"],
+  ["장소 빠뜨림", "/blog-review"]
+];
+const quick = $("quick");
+for (const [label, cmd] of EXAMPLES) {
+  const b = el("button", "", label);
+  b.type = "button";
+  b.addEventListener("click", () => { input.value = cmd; input.focus(); });
+  quick.append(b);
+}
+function reset() {
+  lines.replaceChildren();
+  folder.replaceChildren(el("span", "empty", "사진을 정리하면 여기에 01.jpg, 02.jpg … 순서로 놓입니다."));
+  paper.replaceChildren(el("div", "ph", "후기를 쓰면 여기에 preview.html이 그려집니다."));
+  $("folderName").textContent = "output/";
+  clearBanner();
+  line("say", "대신 블로거 폴더예요. 장소와 메모를 /blog-review 로 보내 주시면 사진 정리부터 발행까지 진행할게요.\n예) /blog-review 성수동 숯결갈비, 사진은 ~/Desktop/갈비, 웨이팅 30분 / 갈빗살 강추");
+  input.value = EXAMPLES[0][1];
+}
+$("reset").addEventListener("click", () => { if (!busy) reset(); });
+reset();
+</script>
+</body>
+</html>
