@@ -98,7 +98,7 @@
           <span class="chip">Flutter</span><span class="chip">iOS · macOS</span><span class="chip">Golden tests</span><span class="chip">Python · ImageMagick</span>
           <span class="period">2026.09 – 10</span>
         </div>
-        <div class="links"><a href="https://apps.apple.com/kr/app/cosmeow-note/id6814067820" target="_blank" rel="noopener">App Store에서 보기</a><a href="https://github.com/nekh802/MeowNote" target="_blank" rel="noopener" data-repo="MeowNote">GitHub에서 보기</a></div>
+        <div class="links"><a href="https://apps.apple.com/kr/app/cosmeow-note/id6814067820" target="_blank" rel="noopener">App Store에서 보기</a><span class="private" data-repo="MeowNote">비공개 저장소</span></div>
       </div>
       <div class="specimen" aria-hidden="true">
         <div class="cap">메모장 3 / 6</div>
@@ -363,22 +363,23 @@
 
 <script>
 // 카드마다 GitHub 저장소 공개 여부를 확인해 "GitHub에서 보기" / "비공개 저장소"를 바꿔 보여 준다.
-// 비공개 저장소는 API가 404를 돌려준다. 확인에 실패하면(요청 한도 등) HTML 기본값을 그대로 둔다.
+// 로그인 없이 저장소 목록을 부르면 공개 저장소만 오므로, 한 번의 요청으로 모든 카드를 판단한다
+// (비로그인 API 한도는 IP당 시간당 60회). 확인에 실패하면(요청 한도 등) HTML 기본값을 그대로 둔다.
 (() => {
   const OWNER = 'nekh802';
-  const CACHE_KEY = 'repo-visibility-v1';
-  const CACHE_TTL = 60 * 60 * 1000;
-  let cache = {};
-  try { cache = JSON.parse(localStorage.getItem(CACHE_KEY)) || {}; } catch {}
+  const CACHE_KEY = 'public-repos-v2';
+  const CACHE_TTL = 10 * 60 * 1000;
 
-  async function isPublic(repo) {
-    const hit = cache[repo];
-    if (hit && Date.now() - hit.at < CACHE_TTL) return hit.public;
-    const res = await fetch(`https://api.github.com/repos/${OWNER}/${repo}`);
-    if (res.status !== 200 && res.status !== 404) return null;
-    cache[repo] = { public: res.status === 200, at: Date.now() };
-    try { localStorage.setItem(CACHE_KEY, JSON.stringify(cache)); } catch {}
-    return cache[repo].public;
+  async function publicRepos() {
+    try {
+      const hit = JSON.parse(localStorage.getItem(CACHE_KEY));
+      if (hit && Date.now() - hit.at < CACHE_TTL) return new Set(hit.names);
+    } catch {}
+    const res = await fetch(`https://api.github.com/users/${OWNER}/repos?type=owner&per_page=100`);
+    if (res.status !== 200) return null;
+    const names = (await res.json()).map((r) => r.name.toLowerCase());
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ names, at: Date.now() })); } catch {}
+    return new Set(names);
   }
 
   function render(slot, repo, pub) {
@@ -398,13 +399,13 @@
     slot.replaceWith(el);
   }
 
-  document.querySelectorAll('.links [data-repo]').forEach(async (slot) => {
-    const repo = slot.dataset.repo;
-    try {
-      const pub = await isPublic(repo);
-      if (pub !== null) render(slot, repo, pub);
-    } catch {}
-  });
+  publicRepos().then((repos) => {
+    if (!repos) return;
+    document.querySelectorAll('.links [data-repo]').forEach((slot) => {
+      const repo = slot.dataset.repo;
+      render(slot, repo, repos.has(repo.toLowerCase()));
+    });
+  }).catch(() => {});
 })();
 </script>
 </body>
