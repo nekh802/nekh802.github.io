@@ -48,3 +48,9 @@
 .sourcing-specimen .shelf-list>div.review{background:#fff5b3}
 .sourcing-specimen .src-hit{color:#5a4a96;white-space:nowrap}
 .sourcing-specimen .src-review{color:#8a6d1f;white-space:nowrap}
+.md-specimen{background:#f4ece2;--line:#e8d9c6;--ink:#4a3826;--muted:#806b57;--accent:#a3652b}
+.md-specimen .shelf-list{background:#ffffffc9;border-color:#e8d9c6;box-shadow:none}
+.md-specimen .shelf-list>div{display:flex;justify-content:space-between;gap:10px}
+.md-specimen .shelf-list>div.review{background:#fff5b3}
+.md-specimen .md-hit{color:#8a5221;white-space:nowrap}
+.md-specimen .md-review{color:#8a6d1f;white-space:nowrap}
