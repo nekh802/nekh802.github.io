@@ -42,3 +42,9 @@
 .pokecard-specimen .shelf-list>div{display:flex;justify-content:space-between;gap:10px}
 .pokecard-specimen .card-grade{color:#c0603a;font-weight:600;white-space:nowrap}
 .pokecard-specimen .card-step{color:#3d765b;white-space:nowrap}
+.sourcing-specimen{background:#ece8f4;--line:#dcd5ea;--ink:#3f3757;--muted:#716a86;--accent:#6b5aa6}
+.sourcing-specimen .shelf-list{background:#ffffffc9;border-color:#dcd5ea;box-shadow:none}
+.sourcing-specimen .shelf-list>div{display:flex;justify-content:space-between;gap:10px}
+.sourcing-specimen .shelf-list>div.review{background:#fff5b3}
+.sourcing-specimen .src-hit{color:#5a4a96;white-space:nowrap}
+.sourcing-specimen .src-review{color:#8a6d1f;white-space:nowrap}
