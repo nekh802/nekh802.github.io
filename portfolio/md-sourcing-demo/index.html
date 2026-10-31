@@ -82,7 +82,7 @@ tr.empty td{color:#9a9a9a;text-align:center;padding:18px}
 <div class="wrap">
   <div class="top"><a href="../#automation">← 포트폴리오로 돌아가기</a><a href="https://github.com/nekh802" target="_blank" rel="noopener">GitHub ↗</a></div>
   <h1>MD Sourcing Bot 데모</h1>
-  <p class="sub">Slack에 <b>md소싱 {캠핑의자}</b>처럼 보내면, 봇이 쇼핑몰에서 그 종류를 파는 브랜드를 찾고 자사몰 하단의 판매자 정보(회사명·대표·전화·이메일)를 MD 시트에 기록합니다.</p>
+  <p class="sub">Slack에 <b>md소싱 캠핑의자</b>처럼 보내면, 봇이 쇼핑몰에서 그 종류를 파는 브랜드를 찾고 자사몰 하단의 판매자 정보(회사명·대표·전화·이메일)를 MD 시트에 기록합니다.</p>
   <div class="notice">이 페이지는 브라우저 안에서만 동작하는 체험판입니다. 업체·연락처는 입력한 키워드로 만들어 낸 가상의 예시이며, 실제 쇼핑몰·Slack·Google 시트에는 연결되지 않습니다. 실제 봇은 한 번에 20곳을 15~30분 동안 찾지만, 데모에서는 8곳을 몇 초 만에 보여 줍니다.</div>
 
   <div class="grid">
@@ -92,7 +92,7 @@ tr.empty td{color:#9a9a9a;text-align:center;padding:18px}
       <div class="compose">
         <div class="quick" id="quick"><span class="label">눌러서 입력</span></div>
         <form id="form">
-          <input id="input" autocomplete="off" aria-label="Slack 메시지" value="md소싱 {캠핑의자}">
+          <input id="input" autocomplete="off" aria-label="Slack 메시지" value="md소싱 캠핑의자">
           <button id="send" type="submit">보내기</button>
         </form>
       </div>
@@ -125,7 +125,7 @@ tr.empty td{color:#9a9a9a;text-align:center;padding:18px}
 <script>
 // Mirrors md_sourcing_request.py (command parsing, replies) and md_sheet.append_rows (A~L, yellow cells).
 const COUNT = 8; // the real bot uses 20
-const USAGE = "사용법: `md소싱 {캠핑의자}` 처럼 md소싱 뒤에 종류를 써 주세요. (따옴표나 괄호는 없어도 돼요)";
+const USAGE = "사용법: `md소싱 캠핑의자` 처럼 md소싱 뒤에 종류를 써 주세요.";
 const WRAP = "\"“”'‘’「」『』";
 const COMMAND = /^\s*md\s*소싱\s*[{｛"“”'‘’]?\s*([^{}｛｝"“”'‘’\n]+?)\s*[}｝"“”'‘’]?\s*$/i;
 
@@ -315,7 +315,7 @@ form.addEventListener("submit", (e) => {
   handle(text);
 });
 const quick = $("quick");
-for (const [label, cmd] of [["캠핑의자", "md소싱 {캠핑의자}"], ["가습기", "md소싱 \"가습기\""], ["과일 선물세트", "md소싱 과일 선물세트"], ["텀블러", "md소싱: 텀블러"], ["형식 틀림", "md 소싱 해줘요 {}"]]) {
+for (const [label, cmd] of [["캠핑의자", "md소싱 캠핑의자"], ["가습기", "md소싱 가습기"], ["과일 선물세트", "md소싱 과일 선물세트"], ["텀블러", "md소싱 텀블러"], ["형식 틀림", "md 소싱 해줘요 {}"]]) {
   const b = el("button", "", label);
   b.type = "button";
   b.addEventListener("click", () => { input.value = cmd; input.focus(); });
@@ -325,8 +325,8 @@ function reset() {
   sheet = SEED.map((r) => ({ ...r }));
   renderSheet();
   msgs.replaceChildren();
-  post("bot", "안녕하세요! `md소싱 {캠핑의자}` 처럼 보내면 그 종류를 파는 브랜드의 자사몰 연락처를 찾아 MD 시트 자동화 탭에 기록해요.\n같은 키워드를 다시 보내면 이미 기록한 업체는 건너뛰고 다음 업체를 찾습니다.");
-  input.value = "md소싱 {캠핑의자}";
+  post("bot", "안녕하세요! `md소싱 캠핑의자` 처럼 보내면 그 종류를 파는 브랜드의 자사몰 연락처를 찾아 MD 시트 자동화 탭에 기록해요.\n같은 키워드를 다시 보내면 이미 기록한 업체는 건너뛰고 다음 업체를 찾습니다.");
+  input.value = "md소싱 캠핑의자";
 }
 $("reset").addEventListener("click", () => { if (!busy) reset(); });
 reset();
