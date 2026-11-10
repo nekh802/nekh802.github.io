@@ -54,3 +54,7 @@
 .md-specimen .shelf-list>div.review{background:#fff5b3}
 .md-specimen .md-hit{color:#8a5221;white-space:nowrap}
 .md-specimen .md-review{color:#8a6d1f;white-space:nowrap}
+.builders-specimen{background:#e4e9f6;--line:#d3dbef;--ink:#2f3b5c;--muted:#66729a;--accent:#4a5fc1}
+.builders-specimen .shelf-list>div{gap:10px}
+.builders-specimen .ba-due{color:#b4533a;white-space:nowrap}
+.builders-specimen .ba-team{color:#4a5fc1;white-space:nowrap}
