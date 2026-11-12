@@ -58,3 +58,4 @@
 .builders-specimen .shelf-list>div{gap:10px}
 .builders-specimen .ba-due{color:#b4533a;white-space:nowrap}
 .builders-specimen .ba-team{color:#4a5fc1;white-space:nowrap}
+.links .demo{display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap}.demo-pw{font-size:.9em;color:var(--muted);font-variant-numeric:tabular-nums}
